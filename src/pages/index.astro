@@ -1,18 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import FocusAreas from '../components/home/FocusAreas.astro';
+import FeaturedPapers from '../components/home/FeaturedPapers.astro';
+import Affiliations from '../components/home/Affiliations.astro';
 ---
 
-<BaseLayout>
-  <div class="space-y-4 py-12">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-forest-300 border border-forest-200/60 dark:border-forest-900/60">
-      <span class="w-1.5 h-1.5 rounded-full bg-forest-600 dark:bg-forest-400"></span>
-      Portfolio Under Development · Issue #2 Active
-    </div>
-    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-      João Assaoka
-    </h1>
-    <p class="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
-      Generative AI Engineer & CS PhD Researcher. Designing scalable foundation models and post-training architectures.
-    </p>
+<BaseLayout
+  title="João Assaoka | Generative AI Engineer & CS PhD Researcher"
+  description="Personal website and research portfolio of João Assaoka (João Victor Assaoka Ribeiro). Direct PhD in Computer Science at UNIFESP, former visiting researcher at Dalhousie University."
+>
+  <div class="space-y-4">
+    <Hero />
+    <FocusAreas />
+    <FeaturedPapers />
+    <Affiliations />
   </div>
 </BaseLayout>

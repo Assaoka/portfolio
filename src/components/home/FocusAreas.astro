@@ -1,0 +1,61 @@
+---
+import { GitMerge, Scale, Server } from 'lucide-astro';
+
+const pillars = [
+  {
+    title: 'Model Merging & Efficient NLP',
+    icon: GitMerge,
+    description:
+      'Pioneering parameter-efficient weight merging (SLERP, TIES, DAE) to create multi-task models in 0.5% of traditional fine-tuning time without catastrophic forgetting.',
+    tags: ['Model Merging', 'Hugging Face', 'Multi-Task Learning', 'PyTorch'],
+  },
+  {
+    title: 'LLM Evaluation & Alignment',
+    icon: Scale,
+    description:
+      'Architecting reference-free evaluation frameworks (LLM-as-a-Judge, LLM-QA) calibrated against human annotators, alongside ensemble classifiers for toxicity and misinformation.',
+    tags: ['LLM-as-a-Judge', 'Evaluation Metrics', 'Human Alignment', 'Ensembles'],
+  },
+  {
+    title: 'HPC & Scalable AI Infrastructure',
+    icon: Server,
+    description:
+      'Deploying high-throughput inference engines and distributed training pipelines on HPC clusters using vLLM, LoRA, and automated data annotation platforms.',
+    tags: ['vLLM', 'Distributed Training', 'LoRA', 'PostgreSQL (Neon)'],
+  },
+];
+---
+
+<section class="py-10 border-t border-forest-100 dark:border-forest-900/40">
+  <div class="space-y-2 mb-6">
+    <h2 class="text-xs uppercase tracking-wider font-semibold text-forest-700 dark:text-forest-400">
+      Research & Systems
+    </h2>
+    <p class="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+      Core Focus Areas
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {pillars.map((item) => (
+      <div class="group p-5 rounded-xl border border-forest-100 dark:border-forest-900/40 bg-[#ffffff]/60 dark:bg-[#0c140f]/60 hover:border-forest-300 dark:hover:border-forest-700/60 transition-all duration-200">
+        <div class="w-9 h-9 rounded-lg bg-forest-50 dark:bg-forest-950/80 border border-forest-200/60 dark:border-forest-900/60 flex items-center justify-center text-forest-700 dark:text-forest-400 mb-4 group-hover:scale-105 transition-transform duration-200">
+          <item.icon class="w-4 h-4" />
+        </div>
+        <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+          {item.title}
+        </h3>
+        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
+          {item.description}
+        </p>
+        <div class="flex flex-wrap gap-1.5 pt-2 border-t border-forest-50 dark:border-forest-950/60">
+          {item.tags.map((tag) => (
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-forest-50/70 dark:bg-forest-950/70 text-forest-700 dark:text-forest-300">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,99 @@
+---
+import { Github, Linkedin, GraduationCap, Mail, ArrowUpRight, FileDown } from 'lucide-astro';
+---
+
+<section class="py-6 sm:py-10">
+  <!-- Status Badge -->
+  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-forest-50 dark:bg-forest-950/70 text-forest-700 dark:text-forest-300 border border-forest-200/70 dark:border-forest-900/60 mb-6">
+    <span class="relative flex h-2 w-2">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-forest-500 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2 w-2 bg-forest-600 dark:bg-forest-400"></span>
+    </span>
+    <span>Direct PhD in CS @ UNIFESP · Visiting Researcher @ Dalhousie (Canada)</span>
+  </div>
+
+  <!-- Main Headline -->
+  <div class="space-y-3">
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">
+      João Assaoka
+    </h1>
+    <p class="text-sm sm:text-base font-mono text-zinc-500 dark:text-zinc-400">
+      João Victor Assaoka Ribeiro
+    </p>
+    <p class="text-lg sm:text-xl font-medium text-forest-700 dark:text-forest-400">
+      Generative AI Engineer & CS PhD Researcher
+    </p>
+  </div>
+
+  <!-- Executive Pitch -->
+  <p class="mt-5 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">
+    I bridge theoretical machine learning and production-scale AI systems. My research focuses on
+    <strong class="font-semibold text-zinc-900 dark:text-zinc-100"> Model Merging</strong>,
+    <strong class="font-semibold text-zinc-900 dark:text-zinc-100"> LLM Evaluation (LLM-as-a-Judge)</strong>,
+    and <strong class="font-semibold text-zinc-900 dark:text-zinc-100"> high-throughput inference architectures (vLLM, HPC)</strong>.
+    Invited directly to the PhD in Computer Science at UNIFESP, with research visits at Dalhousie University's DNLP Group and Malanis Lab.
+  </p>
+
+  <!-- CTAs and Links -->
+  <div class="mt-8 flex flex-wrap items-center gap-3">
+    <a
+      href="#featured-papers"
+      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-forest-700 hover:bg-forest-800 text-white text-sm font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-forest-600/40"
+    >
+      <span>Selected Research</span>
+      <ArrowUpRight class="w-4 h-4" />
+    </a>
+
+    <a
+      href="/projects"
+      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-forest-200 dark:border-forest-900/80 bg-white/60 dark:bg-forest-950/30 hover:bg-forest-50 dark:hover:bg-forest-900/40 text-zinc-800 dark:text-zinc-200 text-sm font-medium transition-colors"
+    >
+      <span>AI Engineering Projects</span>
+    </a>
+
+    <!-- Social & Contact Quick Links -->
+    <div class="flex items-center gap-1.5 sm:ml-2">
+      <a
+        href="https://github.com/Assaoka"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub Profile"
+        title="GitHub"
+        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+      >
+        <Github class="w-4 h-4" />
+      </a>
+
+      <a
+        href="https://linkedin.com/in/assaoka"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn Profile"
+        title="LinkedIn"
+        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+      >
+        <Linkedin class="w-4 h-4" />
+      </a>
+
+      <a
+        href="https://scholar.google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Google Scholar"
+        title="Google Scholar"
+        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+      >
+        <GraduationCap class="w-4 h-4" />
+      </a>
+
+      <a
+        href="mailto:joao.assaoka@unifesp.br"
+        aria-label="Send Email"
+        title="joao.assaoka@unifesp.br"
+        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+      >
+        <Mail class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</section>
