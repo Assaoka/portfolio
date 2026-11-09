@@ -1,0 +1,66 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'João Assaoka | Generative AI Engineer & CS PhD Researcher',
+  description = 'Personal website, research papers, and generative AI engineering projects by João Assaoka.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Previne flash de tema branco (FOUC) ao carregar -->
+    <script is:inline>
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+
+      const isDark = getThemePreference() === 'dark';
+      document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+      if (typeof localStorage !== 'undefined') {
+        const observer = new MutationObserver(() => {
+          const isDarkNow = document.documentElement.classList.contains('dark');
+          localStorage.setItem('theme', isDarkNow ? 'dark' : 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+      }
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-forest-700 selection:text-white">
+    <!-- Efeito de iluminação sutil superior (Glow atmosférico em verde floresta) -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[600px] h-[240px] bg-gradient-to-b from-forest-600/10 dark:from-forest-500/15 to-transparent blur-3xl opacity-70"
+    ></div>
+
+    <!-- Header fixo / navegação -->
+    <Header />
+
+    <!-- Conteúdo principal -->
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <slot />
+    </main>
+
+    <!-- Rodapé -->
+    <Footer />
+  </body>
+</html>

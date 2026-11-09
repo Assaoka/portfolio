@@ -1,0 +1,65 @@
+---
+import { Github, Linkedin, GraduationCap, FileText, Mail } from 'lucide-astro';
+
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  {
+    name: 'Google Scholar',
+    href: 'https://scholar.google.com',
+    icon: GraduationCap,
+  },
+  {
+    name: 'arXiv',
+    href: 'https://arxiv.org',
+    icon: FileText,
+  },
+  {
+    name: 'GitHub',
+    href: 'https://github.com/Assaoka',
+    icon: Github,
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/assaoka',
+    icon: Linkedin,
+  },
+  {
+    name: 'Email',
+    href: 'mailto:joao@assaoka.com',
+    icon: Mail,
+  },
+];
+---
+
+<footer class="w-full border-t border-forest-100 dark:border-forest-900/40 mt-auto py-10 transition-colors">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+    <!-- Copyright & Title -->
+    <div class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-center sm:text-left">
+      <span class="font-medium text-zinc-700 dark:text-zinc-300">João Assaoka</span>
+      <span class="hidden sm:inline">·</span>
+      <span>Generative AI Engineer & CS PhD Researcher</span>
+    </div>
+
+    <!-- Social & Academic Links -->
+    <div class="flex items-center gap-3">
+      {socialLinks.map((item) => (
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={item.name}
+          title={item.name}
+          class="p-1.5 rounded-md text-zinc-500 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        >
+          <item.icon class="w-4 h-4" />
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 mt-4 pt-4 border-t border-forest-50 dark:border-forest-950/40 text-[11px] text-zinc-400 dark:text-zinc-600 flex justify-between items-center">
+    <span>© {currentYear} João Assaoka. All rights reserved.</span>
+    <span>Built with Astro & Tailwind CSS</span>
+  </div>
+</footer>

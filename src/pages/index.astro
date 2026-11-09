@@ -1,20 +1,18 @@
 ---
-// Step 0 & 1: Project Setup Placeholder
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>João Assaoka | Generative AI Engineer & CS PhD Researcher</title>
-	</head>
-	<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center">
-		<main class="text-center p-6">
-			<h1 class="text-3xl font-bold tracking-tight">João Assaoka</h1>
-			<p class="text-slate-400 mt-2">Generative AI Engineer & CS PhD Researcher</p>
-			<p class="text-xs text-slate-500 mt-4">Project setup initialized successfully.</p>
-		</main>
-	</body>
-</html>
+<BaseLayout>
+  <div class="space-y-4 py-12">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-forest-50 dark:bg-forest-950/60 text-forest-700 dark:text-forest-300 border border-forest-200/60 dark:border-forest-900/60">
+      <span class="w-1.5 h-1.5 rounded-full bg-forest-600 dark:bg-forest-400"></span>
+      Portfolio Under Development · Issue #2 Active
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+      João Assaoka
+    </h1>
+    <p class="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+      Generative AI Engineer & CS PhD Researcher. Designing scalable foundation models and post-training architectures.
+    </p>
+  </div>
+</BaseLayout>
