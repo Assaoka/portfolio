@@ -1,94 +1,18 @@
 ---
-const experiences = [
-  {
-    roleEn: 'Natural Language Processing Researcher',
-    orgEn: 'PARANA Research Group | FAPESP | Serasa Experian',
-    periodEn: 'Nov 2024 – Present',
-    detailEn: 'Remote',
-    bulletsEn: [
-      'Increased correlation with human judgment by 113% (from 0.23 to 0.49) in reference-free financial news summarization evaluation, proposing and implementing task decomposition via Question Answering with LLMs in Python and LangChain.',
-      'Accelerated multi-task retraining cycle by 99.5% (from 1h17min to 25s) while preserving 94.7% of Macro-F1, by architecting an SLM Model Merging strategy via Mergekit.',
-      'Increased relative Macro-F1 by 31.2% in multi-class toxicity detection under imbalanced scenarios by structuring synthetic data augmentation pipelines via LLMs.',
-      'Built a proprietary financial domain dataset (5,000+ samples), developing scraping with Selenium, a web annotation platform in Streamlit, relational modeling in PostgreSQL (Neon/SQLAlchemy), and exploratory analysis with Pandas and Matplotlib.',
-      'Architected fine-tuning pipelines (Full, LoRA, IA3, Soft Prompts via Hugging Face) and inference (vLLM) with structured outputs, orchestrating experiments across multi-GPU NVIDIA nodes in an HPC Linux environment (Digital Research Alliance of Canada) via Slurm.',
-    ],
-  },
-  {
-    roleEn: 'Supervisor / Data and AI Department Manager',
-    orgEn: 'SciTec Jr.',
-    periodEn: 'Dec 2024 – Jan 2026',
-    detailEn: 'Remote',
-    bulletsEn: [
-      "Founded and structured the consultancy's dedicated Data Science and Artificial Intelligence department, leading the spin-off from the computing division and establishing new hiring criteria that enabled talent attraction across multiple engineering fields.",
-      'Managed the lifecycle and technical delivery of 6 projects, encompassing 3 consulting initiatives for external clients and 3 internal operational automation products focused on process scalability.',
-      'Upskilled new consultants in Data and AI competencies, designing the technical learning track and conducting training sessions in Python, exploratory data analysis (Pandas, Matplotlib), CRISP-DM methodology, interactive Streamlit interfaces, and LLM orchestration with LangChain.',
-    ],
-  },
-  {
-    roleEn: 'Generative AI Engineer',
-    orgEn: 'Ativamente - Enactus UNIFESP São José dos Campos',
-    periodEn: 'Feb 2025 – Jul 2025',
-    detailEn: 'Remote',
-    bulletsEn: [
-      'Reduced clinical report generation time by over 90% (from 1–3 hours to 5 minutes) by architecting an integrated data solution with a Streamlit interface and an automated LLM summarization pipeline.',
-      'Developed an intelligent conversational agent (Text-to-SQL / Chatbot) capable of interpreting natural language queries and extracting on-demand analytical metrics from cognitive workshop data and elderly participant medical records.',
-      'Centralized and standardized the workshop data ecosystem, replacing fragmented legacy spreadsheets with a structured relational architecture and input forms.',
-      'Video Demonstration.',
-    ],
-  },
-  {
-    roleEn: 'Prescriptive Maintenance & XAI Researcher',
-    orgEn: 'PARANA Research Group | FAPESP | IAsmin Platform | Siemens Energy',
-    periodEn: 'Jul 2023 – Dec 2024',
-    detailEn: 'Remote',
-    bulletsEn: [
-      'Enabled operational cost savings and proactive industrial failure prevention by predicting sensor time-series degradation signals, developing and benchmarking models ranging from linear baselines (Linear Regression) to gradient-boosted ensembles (XGBoost) and deep recurrent architectures (LSTM).',
-      'Implemented a multi-technique Explainable Artificial Intelligence (XAI) framework using SHAP, ALE (Accumulated Local Effects) plots, and partial dependence (PDP 1D/2D), diagnosing complex causal interactions to validate prediction alignment with domain engineering knowledge and increase decision-making transparency.',
-      'Co-created the IAsmin educational platform, democratizing practical XAI and Industry 4.0 predictive maintenance methodologies in Portuguese through 7 hands-on tutorials detailing theoretical foundations and interpretability implementations.',
-    ],
-  },
-];
+import ContentCard from '../common/ContentCard.astro';
+import { experienceData } from '../../data/experience';
 ---
 
-<section class="py-8 border-t border-forest-100 dark:border-forest-900/40">
+<section id="experience" class="py-8 border-t border-forest-100 dark:border-forest-900/40 scroll-mt-20 sm:scroll-mt-24">
   <div class="mb-6">
-    <h2 class="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 uppercase text-xs text-forest-700 dark:text-forest-400">
+    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
       Experience
     </h2>
   </div>
 
-  <div class="space-y-6">
-    {experiences.map((item) => (
-      <div class="space-y-1">
-        <!-- Linha 1: Nome - Data -->
-        <div class="flex items-baseline justify-between gap-2">
-          <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">
-            {item.roleEn}
-          </h3>
-          <span class="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
-            {item.periodEn}
-          </span>
-        </div>
-
-        <!-- Linha 2: Onde - Detalhe / Remoto -->
-        <div class="flex items-baseline justify-between gap-2 text-xs sm:text-sm">
-          <p class="italic text-zinc-700 dark:text-zinc-300">
-            {item.orgEn}
-          </p>
-          {item.detailEn && (
-            <span class="font-medium text-forest-700 dark:text-forest-400 whitespace-nowrap">
-              {item.detailEn}
-            </span>
-          )}
-        </div>
-
-        <!-- Bullet points -->
-        <ul class="list-disc list-outside ml-4 pt-1.5 space-y-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-          {item.bulletsEn.map((bullet) => (
-            <li>{bullet}</li>
-          ))}
-        </ul>
-      </div>
+  <div class="space-y-4">
+    {experienceData.map((item) => (
+      <ContentCard {...item} />
     ))}
   </div>
 </section>

@@ -1,0 +1,113 @@
+---
+import { marked } from 'marked';
+import { ArrowUpRight } from 'lucide-astro';
+import type { ContentItem } from '../../types/content';
+
+interface Props extends ContentItem {}
+
+const {
+  title,
+  subtitle,
+  period,
+  detail,
+  text,
+  super_tag,
+  tags = [],
+  urls = {},
+} = Astro.props;
+
+// Função helper para remover indentação comum de template literals multilinha
+function cleanDedent(str: string): string {
+  const lines = str.replace(/^\n/, '').split('\n');
+  const minIndent = lines
+    .filter((line) => line.trim().length > 0)
+    .reduce((min, line) => {
+      const match = line.match(/^(\s+)/);
+      return match ? Math.min(min, match[1].length) : 0;
+    }, Infinity);
+
+  if (minIndent === Infinity || minIndent === 0) return str.trim();
+  return lines.map((line) => line.slice(minIndent)).join('\n').trim();
+}
+
+const renderedSubtitle = subtitle ? marked.parseInline(subtitle) : null;
+const renderedText = text ? marked.parse(cleanDedent(text)) : null;
+
+const hasFooter = super_tag || (tags && tags.length > 0) || (urls && Object.keys(urls).length > 0);
+---
+
+<article class="p-5 rounded-xl border border-forest-100 dark:border-forest-900/40 bg-[#ffffff]/60 dark:bg-[#0c140f]/60 hover:border-forest-300 dark:hover:border-forest-700/60 transition-all duration-200 space-y-2.5">
+  <!-- Top Row: Title + Period -->
+  <div class="flex items-baseline justify-between gap-3">
+    <h3 class="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
+      {title}
+    </h3>
+    {period && (
+      <span class="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
+        {period}
+      </span>
+    )}
+  </div>
+
+  <!-- Sub Row: Subtitle + Detail -->
+  {(renderedSubtitle || detail) && (
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs sm:text-sm">
+      {renderedSubtitle && (
+        <div
+          class="text-zinc-700 dark:text-zinc-300 leading-normal [&_strong]:font-semibold [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100 [&_strong]:underline [&_strong]:decoration-forest-500/60"
+          set:html={renderedSubtitle}
+        />
+      )}
+      {detail && (
+        <span class="font-medium text-forest-700 dark:text-forest-400 whitespace-nowrap">
+          {detail}
+        </span>
+      )}
+    </div>
+  )}
+
+  <!-- Text Body (Markdown: bullets ou texto corrido) -->
+  {renderedText && (
+    <div
+      class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-4 [&_ul]:space-y-1 [&_p]:leading-relaxed [&_a]:text-forest-700 dark:[&_a]:text-forest-400 [&_a]:underline hover:[&_a]:text-forest-800 dark:hover:[&_a]:text-forest-300 [&_strong]:text-zinc-900 dark:[&_strong]:text-zinc-100"
+      set:html={renderedText}
+    />
+  )}
+
+  <!-- Footer Row: Super Tag + Tags (esquerda) & Urls (direita) -->
+  {hasFooter && (
+    <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+      <!-- Tags Container -->
+      <div class="flex flex-wrap items-center gap-1.5">
+        {super_tag && (
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-forest-700 text-white dark:bg-forest-600">
+            {super_tag}
+          </span>
+        )}
+        {tags && tags.map((tag) => (
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-forest-50/70 dark:bg-forest-950/70 text-forest-700 dark:text-forest-300">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- Action URLs -->
+      {urls && Object.keys(urls).length > 0 && (
+        <div class="flex flex-wrap items-center gap-3">
+          {Object.entries(urls).map(([label, href]) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
+            >
+              <span>{label}</span>
+              <ArrowUpRight class="w-3.5 h-3.5" />
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+</article>
+

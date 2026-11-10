@@ -1,53 +1,14 @@
 ---
-import { ArrowUpRight, ExternalLink } from 'lucide-astro';
-
-const featuredPapers = [
-  {
-    title: 'United Experts: Efficient Multi-Task Sentiment Analysis in Portuguese via Model Merging',
-    authors: ['João Assaoka', 'Evangelos Milios', 'Vlado Keselj', 'José Vitor Requena', 'Diego Miranda', 'Lilian Berton'],
-    venue: 'ENIAC 2026',
-    venueFull: '23º Encontro Nacional de Inteligência Artificial e Computacional',
-    year: 2026,
-    url: 'https://doi.org/10.5753/eniac.2026.31064',
-    highlight:
-      'Reduced multi-task model creation time to just 0.5% of standard fine-tuning by merging specialist LLM checkpoints without performance degradation. Joint work during research visit with Dalhousie University.',
-    tags: ['Model Merging', 'Multi-Task Learning', 'Resource-Efficient NLP'],
-  },
-  {
-    title: 'Evaluating Reference-Free Summarization Quality Metrics for Portuguese: A Study with Human Judgments in Financial News',
-    authors: ['João Victor Assaoka Ribeiro', 'Thomas Correia', 'José Vitor Requena', 'Lilian Berton'],
-    venue: 'PROPOR 2026 (ACL Anthology)',
-    venueFull: '17th International Conference on Computational Processing of Portuguese',
-    year: 2026,
-    url: 'https://aclanthology.org/2026.propor-1.89/',
-    highlight:
-      'Study analyzing reference-free summarization quality metrics for financial news in Portuguese, demonstrating that question-answering decomposition outperforms monolithic LLM judges against human annotators.',
-    tags: ['Summarization Evaluation', 'NLP', 'Financial News'],
-  },
-  {
-    title: 'Negotiating LLMs for Enhanced Hate Speech Classification and Interpretability',
-    authors: ['João Assaoka', 'Lilian Berton'],
-    venue: 'ENIAC 2025',
-    venueFull: '22º Encontro Nacional de Inteligência Artificial e Computacional',
-    year: 2025,
-    url: 'https://doi.org/10.5753/eniac.2025.13886',
-    highlight:
-      'Multi-LLM negotiation framework to improve classification precision and generate faithful rationales for toxicity detection in Portuguese.',
-    tags: ['LLM Collaboration', 'Explainability', 'Toxicity Detection'],
-  },
-];
+import { ArrowUpRight } from 'lucide-astro';
+import ContentCard from '../common/ContentCard.astro';
+import { papersData } from '../../data/papers';
 ---
 
-<section id="featured-papers" class="py-10 border-t border-forest-100 dark:border-forest-900/40">
+<section id="publications" class="py-8 border-t border-forest-100 dark:border-forest-900/40 scroll-mt-20 sm:scroll-mt-24">
   <div class="flex items-end justify-between mb-6">
-    <div class="space-y-2">
-      <h2 class="text-xs uppercase tracking-wider font-semibold text-forest-700 dark:text-forest-400">
-        Peer-Reviewed Research
-      </h2>
-      <p class="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-        Selected Publications
-      </p>
-    </div>
+    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
+      Selected Publications
+    </h2>
     <a
       href="/papers"
       class="text-xs sm:text-sm font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
@@ -58,60 +19,8 @@ const featuredPapers = [
   </div>
 
   <div class="space-y-4">
-    {featuredPapers.map((paper) => (
-      <article class="p-5 rounded-xl border border-forest-100 dark:border-forest-900/40 bg-[#ffffff]/60 dark:bg-[#0c140f]/60 hover:border-forest-300 dark:hover:border-forest-700/60 transition-all duration-200">
-        <div class="flex flex-wrap items-center gap-2 mb-2">
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-forest-700 text-white dark:bg-forest-600">
-            {paper.venue}
-          </span>
-          <span class="text-xs text-zinc-500 dark:text-zinc-400">
-            {paper.year}
-          </span>
-        </div>
-
-        <h3 class="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 hover:text-forest-700 dark:hover:text-forest-400 transition-colors">
-          <a href={paper.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-start gap-1 group">
-            <span>{paper.title}</span>
-            <ExternalLink class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
-          </a>
-        </h3>
-
-        <!-- Authors list with João highlighted -->
-        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-          {paper.authors.map((author, idx) => (
-            <>
-              <span class={author.includes('Assaoka') ? 'font-semibold text-zinc-900 dark:text-zinc-100 underline decoration-forest-500/60' : ''}>
-                {author}
-              </span>
-              {idx < paper.authors.length - 1 ? ', ' : ''}
-            </>
-          ))}
-        </p>
-
-        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 mt-3 leading-relaxed">
-          {paper.highlight}
-        </p>
-
-        <div class="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-forest-50 dark:border-forest-950/60">
-          <div class="flex flex-wrap gap-1.5">
-            {paper.tags.map((tag) => (
-              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-forest-50/70 dark:bg-forest-950/70 text-forest-700 dark:text-forest-300">
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <a
-            href={paper.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-xs font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
-          >
-            <span>Read Publication</span>
-            <ArrowUpRight class="w-3 h-3" />
-          </a>
-        </div>
-      </article>
+    {papersData.map((item) => (
+      <ContentCard {...item} />
     ))}
   </div>
 </section>

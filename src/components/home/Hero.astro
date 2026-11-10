@@ -1,5 +1,5 @@
 ---
-import { Github, Linkedin, GraduationCap, Mail, ArrowUpRight } from 'lucide-astro';
+import { Github, Linkedin, GraduationCap, Mail, ArrowUpRight, FileDown } from 'lucide-astro';
 import HuggingFaceIcon from '../icons/HuggingFaceIcon.astro';
 ---
 
@@ -10,7 +10,7 @@ import HuggingFaceIcon from '../icons/HuggingFaceIcon.astro';
       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-forest-500 opacity-75"></span>
       <span class="relative inline-flex rounded-full h-2 w-2 bg-forest-600 dark:bg-forest-400"></span>
     </span>
-    <span>Direct PhD Student in CS @ UNIFESP · Former Visiting Researcher @ Dalhousie</span>
+    <span> Generative AI Engineer & CS PhD Researcher </span>
   </div>
 
   <!-- Main Headline -->
@@ -31,76 +31,112 @@ import HuggingFaceIcon from '../icons/HuggingFaceIcon.astro';
     Generative AI Engineer and CS PhD researcher at UNIFESP. I investigate methodologies for efficient post-training and real-world LLM operationalization.
   </p>
 
-  <!-- CTAs and Links -->
-  <div class="mt-8 flex flex-wrap items-center gap-3">
-    <a
-      href="#featured-papers"
-      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-forest-700 hover:bg-forest-800 text-white text-sm font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-forest-600/40"
-    >
-      <span>Selected Research</span>
-      <ArrowUpRight class="w-4 h-4" />
-    </a>
+  <!-- Key Words & Languages -->
+  <div class="mt-6 space-y-1.5 text-xs sm:text-sm">
+    <p class="text-zinc-600 dark:text-zinc-400">
+      <strong class="font-semibold text-zinc-900 dark:text-zinc-100">Keywords:</strong> Python, IA, Deep Learning, Agentes, LLM, RAG, Hugging Face, LangChain, vLLM, Streamlit, Claude Code, Antigravity
+    </p>
+    <p class="text-zinc-600 dark:text-zinc-400">
+      <strong class="font-semibold text-zinc-900 dark:text-zinc-100">Languages:</strong> Portuguese (Native), English (Advanced)
+    </p>
+  </div>
 
-    <a
-      href="/projects"
-      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-forest-200 dark:border-forest-900/80 bg-white/60 dark:bg-forest-950/30 hover:bg-forest-50 dark:hover:bg-forest-900/40 text-zinc-800 dark:text-zinc-200 text-sm font-medium transition-colors"
-    >
-      <span>Projects</span>
-    </a>
-
-    <!-- Social & Academic Quick Links -->
-    <div class="flex items-center gap-1 sm:ml-2">
+  <!-- Ações e Navegação Interna -->
+  <div class="mt-8 space-y-4">
+    <!-- Linha 1: Baixar Currículo + Contatos -->
+    <div class="flex flex-wrap items-center gap-3">
       <a
-        href="https://scholar.google.com/citations?user=4XKCFF4AAAAJ"
+        href="/vitae.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Google Scholar"
-        title="Google Scholar"
-        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-forest-700 hover:bg-forest-800 text-white text-sm font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-forest-600/40"
       >
-        <GraduationCap class="w-4 h-4" />
+        <FileDown class="w-4 h-4" />
+        <span>Download CV</span>
       </a>
 
-      <a
-        href="https://huggingface.co/Assaoka"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Hugging Face"
-        title="Hugging Face"
-        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors flex items-center justify-center"
-      >
-        <HuggingFaceIcon class="w-4 h-4" />
-      </a>
+      <!-- Contatos / Redes -->
+      <div class="flex items-center gap-1 sm:ml-2">
+        <a
+          href="https://scholar.google.com/citations?user=4XKCFF4AAAAJ"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Google Scholar"
+          title="Google Scholar"
+          class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        >
+          <GraduationCap class="w-4 h-4" />
+        </a>
 
-      <a
-        href="https://github.com/Assaoka"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub Profile"
-        title="GitHub"
-        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
-      >
-        <Github class="w-4 h-4" />
-      </a>
+        <a
+          href="https://huggingface.co/Assaoka"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Hugging Face"
+          title="Hugging Face"
+          class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors flex items-center justify-center"
+        >
+          <HuggingFaceIcon class="w-4 h-4" />
+        </a>
 
-      <a
-        href="https://linkedin.com/in/assaoka"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn Profile"
-        title="LinkedIn"
-        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
-      >
-        <Linkedin class="w-4 h-4" />
-      </a>
+        <a
+          href="https://github.com/Assaoka"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub Profile"
+          title="GitHub"
+          class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        >
+          <Github class="w-4 h-4" />
+        </a>
 
+        <a
+          href="https://linkedin.com/in/assaoka"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn Profile"
+          title="LinkedIn"
+          class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        >
+          <Linkedin class="w-4 h-4" />
+        </a>
+
+        <a
+          href="mailto:joao.assaoka@unifesp.br"
+          aria-label="Send Email"
+          title="joao.assaoka@unifesp.br"
+          class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        >
+          <Mail class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Linha 2: Links para as partes do currículo -->
+    <div class="flex flex-wrap items-center gap-2">
       <a
-        href="mailto:joao.assaoka@unifesp.br"
-        aria-label="Send Email"
-        title="joao.assaoka@unifesp.br"
-        class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+        href="#education"
+        class="inline-flex items-center px-3.5 py-1.5 rounded-lg border border-forest-200 dark:border-forest-900/80 bg-white/60 dark:bg-forest-950/30 hover:bg-forest-50 dark:hover:bg-forest-900/40 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
       >
-        <Mail class="w-4 h-4" />
+        Education
+      </a>
+      <a
+        href="#experience"
+        class="inline-flex items-center px-3.5 py-1.5 rounded-lg border border-forest-200 dark:border-forest-900/80 bg-white/60 dark:bg-forest-950/30 hover:bg-forest-50 dark:hover:bg-forest-900/40 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
+      >
+        Experience
+      </a>
+      <a
+        href="#publications"
+        class="inline-flex items-center px-3.5 py-1.5 rounded-lg border border-forest-200 dark:border-forest-900/80 bg-white/60 dark:bg-forest-950/30 hover:bg-forest-50 dark:hover:bg-forest-900/40 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
+      >
+        Publications
+      </a>
+      <a
+        href="#awards"
+        class="inline-flex items-center px-3.5 py-1.5 rounded-lg border border-forest-200 dark:border-forest-900/80 bg-white/60 dark:bg-forest-950/30 hover:bg-forest-50 dark:hover:bg-forest-900/40 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
+      >
+        Awards
       </a>
     </div>
   </div>

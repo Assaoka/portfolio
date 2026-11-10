@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
-import FeaturedPapers from '../components/home/FeaturedPapers.astro';
-import Experience from '../components/home/Experience.astro';
 import Education from '../components/home/Education.astro';
+import Experience from '../components/home/Experience.astro';
+import FeaturedPapers from '../components/home/FeaturedPapers.astro';
+import Awards from '../components/home/Awards.astro';
 ---
 
 <BaseLayout
@@ -12,8 +13,9 @@ import Education from '../components/home/Education.astro';
 >
   <div class="space-y-4">
     <Hero />
-    <FeaturedPapers />
-    <Experience />
     <Education />
+    <Experience />
+    <FeaturedPapers />
+    <Awards />
   </div>
 </BaseLayout>
