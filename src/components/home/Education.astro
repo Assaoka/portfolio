@@ -1,0 +1,18 @@
+---
+import ContentCard from '../common/ContentCard.astro';
+import { educationData } from '../../data/education';
+---
+
+<section id="education" class="py-8 border-t border-forest-100 dark:border-forest-900/40 scroll-mt-20 sm:scroll-mt-24">
+  <div class="mb-6">
+    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
+      Education
+    </h2>
+  </div>
+
+  <div class="space-y-4">
+    {educationData.map((item) => (
+      <ContentCard {...item} />
+    ))}
+  </div>
+</section>

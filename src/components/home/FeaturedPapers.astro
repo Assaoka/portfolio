@@ -1,0 +1,26 @@
+---
+import { ArrowUpRight } from 'lucide-astro';
+import ContentCard from '../common/ContentCard.astro';
+import { papersData } from '../../data/papers';
+---
+
+<section id="publications" class="py-8 border-t border-forest-100 dark:border-forest-900/40 scroll-mt-20 sm:scroll-mt-24">
+  <div class="flex items-end justify-between mb-6">
+    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
+      Selected Publications
+    </h2>
+    <a
+      href="/papers"
+      class="text-xs sm:text-sm font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
+    >
+      <span>All 6 Publications</span>
+      <ArrowUpRight class="w-3.5 h-3.5" />
+    </a>
+  </div>
+
+  <div class="space-y-4">
+    {papersData.map((item) => (
+      <ContentCard {...item} />
+    ))}
+  </div>
+</section>
