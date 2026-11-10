@@ -1,5 +1,5 @@
 ---
-import { ArrowUpRight, BookOpen, ExternalLink } from 'lucide-astro';
+import { ArrowUpRight, ExternalLink } from 'lucide-astro';
 
 const featuredPapers = [
   {
@@ -8,9 +8,9 @@ const featuredPapers = [
     venue: 'ENIAC 2026',
     venueFull: '23º Encontro Nacional de Inteligência Artificial e Computacional',
     year: 2026,
-    doi: 'https://doi.org/10.5753/eniac.2026.31064',
+    url: 'https://doi.org/10.5753/eniac.2026.31064',
     highlight:
-      'Reduced multi-task model creation time to just 0.5% of standard fine-tuning by merging specialist LLM checkpoints without performance degradation. Joint work with Dalhousie University.',
+      'Reduced multi-task model creation time to just 0.5% of standard fine-tuning by merging specialist LLM checkpoints without performance degradation. Joint work during research visit with Dalhousie University.',
     tags: ['Model Merging', 'Multi-Task Learning', 'Resource-Efficient NLP'],
   },
   {
@@ -19,9 +19,10 @@ const featuredPapers = [
     venue: 'PROPOR 2026 (ACL Anthology)',
     venueFull: '17th International Conference on Computational Processing of Portuguese',
     year: 2026,
+    url: 'https://aclanthology.org/2026.propor-1.89/',
     highlight:
-      'Empirical investigation calibrating LLM-as-a-Judge and LLM-QA reference-free metrics against expert human annotators on domain-specific financial summaries.',
-    tags: ['LLM-as-a-Judge', 'Evaluation Metrics', 'Financial NLP'],
+      'Study analyzing reference-free summarization quality metrics for financial news in Portuguese, demonstrating that question-answering decomposition outperforms monolithic LLM judges against human annotators.',
+    tags: ['Summarization Evaluation', 'NLP', 'Financial News'],
   },
   {
     title: 'Negotiating LLMs for Enhanced Hate Speech Classification and Interpretability',
@@ -29,10 +30,10 @@ const featuredPapers = [
     venue: 'ENIAC 2025',
     venueFull: '22º Encontro Nacional de Inteligência Artificial e Computacional',
     year: 2025,
-    doi: 'https://doi.org/10.5753/eniac.2025.13886',
+    url: 'https://doi.org/10.5753/eniac.2025.13886',
     highlight:
-      'Cooperative multi-agent negotiation framework between LLMs to optimize classification precision and generate faithful rationales for toxicity detection.',
-    tags: ['Multi-Agent LLMs', 'Explainability', 'Toxicity Detection'],
+      'Multi-LLM negotiation framework to improve classification precision and generate faithful rationales for toxicity detection in Portuguese.',
+    tags: ['LLM Collaboration', 'Explainability', 'Toxicity Detection'],
   },
 ];
 ---
@@ -69,14 +70,10 @@ const featuredPapers = [
         </div>
 
         <h3 class="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 hover:text-forest-700 dark:hover:text-forest-400 transition-colors">
-          {paper.doi ? (
-            <a href={paper.doi} target="_blank" rel="noopener noreferrer" class="inline-flex items-start gap-1 group">
-              <span>{paper.title}</span>
-              <ExternalLink class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
-            </a>
-          ) : (
-            paper.title
-          )}
+          <a href={paper.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-start gap-1 group">
+            <span>{paper.title}</span>
+            <ExternalLink class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
+          </a>
         </h3>
 
         <!-- Authors list with João highlighted -->
@@ -104,17 +101,15 @@ const featuredPapers = [
             ))}
           </div>
 
-          {paper.doi && (
-            <a
-              href={paper.doi}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-xs font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
-            >
-              <span>Read Paper</span>
-              <ArrowUpRight class="w-3 h-3" />
-            </a>
-          )}
+          <a
+            href={paper.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
+          >
+            <span>Read Publication</span>
+            <ArrowUpRight class="w-3 h-3" />
+          </a>
         </div>
       </article>
     ))}

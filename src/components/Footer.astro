@@ -1,18 +1,19 @@
 ---
-import { Github, Linkedin, GraduationCap, FileText, Mail } from 'lucide-astro';
+import { Github, Linkedin, GraduationCap, Mail } from 'lucide-astro';
+import HuggingFaceIcon from './icons/HuggingFaceIcon.astro';
 
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
   {
     name: 'Google Scholar',
-    href: 'https://scholar.google.com',
+    href: 'https://scholar.google.com/citations?user=4XKCFF4AAAAJ',
     icon: GraduationCap,
   },
   {
-    name: 'arXiv',
-    href: 'https://arxiv.org',
-    icon: FileText,
+    name: 'Hugging Face',
+    href: 'https://huggingface.co/Assaoka',
+    customIcon: HuggingFaceIcon,
   },
   {
     name: 'GitHub',
@@ -26,7 +27,7 @@ const socialLinks = [
   },
   {
     name: 'Email',
-    href: 'mailto:joao@assaoka.com',
+    href: 'mailto:joao.assaoka@unifesp.br',
     icon: Mail,
   },
 ];
@@ -42,7 +43,7 @@ const socialLinks = [
     </div>
 
     <!-- Social & Academic Links -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       {socialLinks.map((item) => (
         <a
           href={item.href}
@@ -50,9 +51,13 @@ const socialLinks = [
           rel="noopener noreferrer"
           aria-label={item.name}
           title={item.name}
-          class="p-1.5 rounded-md text-zinc-500 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+          class="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors flex items-center justify-center"
         >
-          <item.icon class="w-4 h-4" />
+          {item.customIcon ? (
+            <item.customIcon class="w-4 h-4" />
+          ) : (
+            <item.icon class="w-4 h-4" />
+          )}
         </a>
       ))}
     </div>

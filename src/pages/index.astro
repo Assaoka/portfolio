@@ -1,19 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
-import FocusAreas from '../components/home/FocusAreas.astro';
 import FeaturedPapers from '../components/home/FeaturedPapers.astro';
-import Affiliations from '../components/home/Affiliations.astro';
+import Experience from '../components/home/Experience.astro';
+import Education from '../components/home/Education.astro';
 ---
 
 <BaseLayout
   title="João Assaoka | Generative AI Engineer & CS PhD Researcher"
-  description="Personal website and research portfolio of João Assaoka (João Victor Assaoka Ribeiro). Direct PhD in Computer Science at UNIFESP, former visiting researcher at Dalhousie University."
+  description="Personal website and research portfolio of João Assaoka (João Victor Assaoka Ribeiro). Direct PhD in Computer Science at UNIFESP, former Visiting International Research Student at Dalhousie University."
 >
   <div class="space-y-4">
     <Hero />
-    <FocusAreas />
     <FeaturedPapers />
-    <Affiliations />
+    <Experience />
+    <Education />
   </div>
 </BaseLayout>

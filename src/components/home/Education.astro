@@ -1,0 +1,100 @@
+---
+const education = [
+  {
+    degree: 'Doutorado Direto em Ciência da Computação',
+    institution: 'Universidade Federal de São Paulo (UNIFESP)',
+    period: 'Mar 2024 – Dez 2030',
+    detail: '',
+    bullets: [
+      'Aluno Regular de Doutorado Direto (Jan 2027 – Dez 2030): Convidado a ingressar diretamente no doutorado em reconhecimento ao desempenho acadêmico e produção científica durante a graduação.',
+      'Aluno Especial da Pós-Graduação (Mar 2024 – Presente): Cursou disciplinas de pós-graduação concomitantemente à graduação, obtendo conceito máximo (A) em todas: Análise de Algoritmos e Estruturas de Dados, Inteligência Artificial, Redes Neurais, Pesquisa Operacional e Seminários.',
+    ],
+    // Versão em inglês:
+    degreeEn: 'Direct PhD in Computer Science',
+    institutionEn: 'Federal University of São Paulo (UNIFESP)',
+    periodEn: 'Mar 2024 – Dec 2030',
+    detailEn: '',
+    bulletsEn: [
+      'Regular Direct PhD Student (Jan 2027 – Dec 2030): Invited to enter directly into the PhD program in recognition of academic performance and scientific production during undergraduate studies.',
+      'Special Graduate Student (Mar 2024 – Present): Completed graduate courses concurrently with undergraduate studies, earning the maximum grade (A) in all: Algorithm Analysis and Data Structures, Artificial Intelligence, Neural Networks, Operations Research, and Seminars.',
+    ],
+  },
+  {
+    degree: 'Visiting International Research Student (VIRS)',
+    institution: 'Dalhousie University',
+    location: 'Halifax, Canadá',
+    period: 'Maio 2026 – Ago 2026',
+    detail: 'Halifax, Canada',
+    bulletsEn: [
+      'Member researcher of the DNLP Group and Malanis Lab, participating in discussions and experiments on the state of the art in Natural Language Processing (NLP) and Machine Learning.',
+    ],
+    degreeEn: 'Visiting International Research Student (VIRS)',
+    institutionEn: 'Dalhousie University',
+    periodEn: 'May 2026 – Aug 2026',
+    detailEn: 'Halifax, Canada',
+  },
+  {
+    degreeEn: 'Bachelor of Science in Computer Science (BCC)',
+    institutionEn: 'Federal University of São Paulo (UNIFESP)',
+    periodEn: 'Feb 2026 – Present',
+    detailEn: 'GPA: 9.25/10',
+    bulletsEn: [
+      'Ranked 3rd place in the career progression selection process following the interdisciplinary cycle.',
+      'Relevant Coursework (BICT/BCC): Calculus, Linear Algebra, Linear Optimization, Operations Research, Problem Solving via Mathematical Modeling, Topics in Economics and Business, Algorithms and Data Structures, Object-Oriented Programming, Software Engineering, Databases, Probability and Statistics, Inference and Regression Analysis, Machine Learning, Artificial Intelligence, and Neural Networks.',
+    ],
+  },
+  {
+    degreeEn: 'Interdisciplinary Bachelor in Science and Technology (BICT)',
+    institutionEn: 'Federal University of São Paulo (UNIFESP)',
+    periodEn: 'Mar 2023 – Feb 2026',
+    detailEn: 'GPA: 9.23/10',
+    bulletsEn: [
+      'Certificate of Emphasis in Data Science Fundamentals.',
+      'Academic Teaching Assistant: Served as TA for Programming Logic and Algorithms & Data Structures courses.',
+    ],
+  },
+];
+---
+
+<section class="py-8 border-t border-forest-100 dark:border-forest-900/40">
+  <div class="mb-6">
+    <h2 class="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 uppercase text-xs text-forest-700 dark:text-forest-400">
+      Education
+    </h2>
+  </div>
+
+  <div class="space-y-6">
+    {education.map((item) => (
+      <div class="space-y-1">
+        <!-- Linha 1: Nome - Data -->
+        <div class="flex items-baseline justify-between gap-2">
+          <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+            {item.degreeEn}
+          </h3>
+          <span class="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
+            {item.periodEn}
+          </span>
+        </div>
+
+        <!-- Linha 2: Onde - Nota / Detalhe -->
+        <div class="flex items-baseline justify-between gap-2 text-xs sm:text-sm">
+          <p class="italic text-zinc-700 dark:text-zinc-300">
+            {item.institutionEn}
+          </p>
+          {item.detailEn && (
+            <span class="font-medium text-forest-700 dark:text-forest-400 whitespace-nowrap">
+              {item.detailEn}
+            </span>
+          )}
+        </div>
+
+        <!-- Bullet points -->
+        <ul class="list-disc list-outside ml-4 pt-1.5 space-y-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+          {item.bulletsEn.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
