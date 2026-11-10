@@ -1,0 +1,22 @@
+---
+// Ativo estritamente em ambiente de produção (na nuvem)
+const isProd = import.meta.env.PROD;
+---
+
+{isProd && (
+  <script>
+    import posthog from 'posthog-js';
+
+    const apiKey = import.meta.env.PUBLIC_POSTHOG_KEY;
+    const apiHost = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
+
+    if (apiKey) {
+      posthog.init(apiKey, {
+        api_host: apiHost,
+        person_profiles: 'identified_only',
+        capture_pageview: true,
+      });
+    }
+  </script>
+)}
+
