@@ -38,12 +38,12 @@ const hasFooter = super_tag || (tags && tags.length > 0) || (urls && Object.keys
 
 <article class="p-5 rounded-xl border border-forest-100 dark:border-forest-900/40 bg-[#ffffff]/60 dark:bg-[#0c140f]/60 hover:border-forest-300 dark:hover:border-forest-700/60 transition-all duration-200 space-y-2.5">
   <!-- Top Row: Title + Period -->
-  <div class="flex items-baseline justify-between gap-3">
+  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3">
     <h3 class="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
       {title}
     </h3>
     {period && (
-      <span class="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
+      <span class="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 shrink-0">
         {period}
       </span>
     )}
@@ -59,7 +59,7 @@ const hasFooter = super_tag || (tags && tags.length > 0) || (urls && Object.keys
         />
       )}
       {detail && (
-        <span class="font-medium text-forest-700 dark:text-forest-400 whitespace-nowrap">
+        <span class="font-medium text-forest-700 dark:text-forest-400 sm:whitespace-nowrap break-words">
           {detail}
         </span>
       )}
