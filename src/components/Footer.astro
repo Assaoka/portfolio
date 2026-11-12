@@ -1,70 +1,70 @@
 ---
 import { Github, Linkedin, GraduationCap, Mail } from 'lucide-astro';
 import HuggingFaceIcon from './icons/HuggingFaceIcon.astro';
+import { profileData } from '../data/profile';
 
 const currentYear = new Date().getFullYear();
 
-const socialLinks = [
-  {
-    name: 'Google Scholar',
-    href: 'https://scholar.google.com/citations?user=4XKCFF4AAAAJ',
-    icon: GraduationCap,
-  },
-  {
-    name: 'Hugging Face',
-    href: 'https://huggingface.co/Assaoka',
-    customIcon: HuggingFaceIcon,
-  },
-  {
-    name: 'GitHub',
-    href: 'https://github.com/Assaoka',
-    icon: Github,
-  },
-  {
-    name: 'LinkedIn',
-    href: 'https://linkedin.com/in/assaoka',
-    icon: Linkedin,
-  },
-  {
-    name: 'Email',
-    href: 'mailto:joao.assaoka@unifesp.br',
-    icon: Mail,
-  },
-];
+const iconMap = {
+  scholar: GraduationCap,
+  github: Github,
+  linkedin: Linkedin,
+  email: Mail,
+};
 ---
 
 <footer class="w-full border-t border-forest-100 dark:border-forest-900/40 mt-auto py-10 transition-colors">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-400">
-    <!-- Copyright & Title -->
-    <div class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-center sm:text-left">
-      <span class="font-medium text-zinc-700 dark:text-zinc-300">João Assaoka</span>
-      <span class="hidden sm:inline">·</span>
-      <span>Generative AI Engineer & CS PhD Researcher</span>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <!-- GitHub Contribution Snake Animation -->
+    <div class="mb-8 w-full max-w-full overflow-hidden flex justify-center">
+      <!-- Dark mode snake (sincronizado com a classe dark do Tailwind e ThemeToggle) -->
+      <img
+        src="https://raw.githubusercontent.com/Assaoka/Assaoka/output/github-contribution-grid-snake-dark.svg"
+        alt="João Assaoka's GitHub contribution grid snake animation"
+        class="hidden dark:block w-full max-w-full h-auto object-contain"
+        loading="lazy"
+      />
+      <!-- Light mode snake -->
+      <img
+        src="https://raw.githubusercontent.com/Assaoka/Assaoka/output/github-contribution-grid-snake.svg"
+        alt="João Assaoka's GitHub contribution grid snake animation"
+        class="block dark:hidden w-full max-w-full h-auto object-contain"
+        loading="lazy"
+      />
     </div>
 
-    <!-- Social & Academic Links -->
-    <div class="flex items-center gap-2">
-      {socialLinks.map((item) => (
-        <a
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={item.name}
-          title={item.name}
-          class="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors flex items-center justify-center"
-        >
-          {item.customIcon ? (
-            <item.customIcon class="w-4 h-4" />
-          ) : (
-            <item.icon class="w-4 h-4" />
-          )}
-        </a>
-      ))}
-    </div>
-  </div>
+    <!-- Main Footer Bar -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+      <!-- Copyright & Title -->
+      <div class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-center sm:text-left">
+        <span class="font-medium text-zinc-700 dark:text-zinc-300">{profileData.name}</span>
+        <span class="hidden sm:inline">·</span>
+        <span>{profileData.title}</span>
+      </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 mt-4 pt-4 border-t border-forest-50 dark:border-forest-950/40 text-[11px] text-zinc-400 dark:text-zinc-600 flex justify-between items-center">
-    <span>© {currentYear} João Assaoka. All rights reserved.</span>
-    <span>Built with Astro & Tailwind CSS</span>
+      <!-- Social & Academic Links -->
+      <div class="flex items-center gap-2">
+        {profileData.socialLinks.map((item) => {
+          const IconComponent = item.icon === 'huggingface' ? HuggingFaceIcon : iconMap[item.icon];
+          return (
+            <a
+              href={item.href}
+              target={item.href.startsWith('mailto:') ? undefined : '_blank'}
+              rel={item.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+              aria-label={item.name}
+              title={item.name}
+              class="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors flex items-center justify-center"
+            >
+              <IconComponent class="w-4 h-4" />
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <div class="mt-4 pt-4 border-t border-forest-50 dark:border-forest-950/40 text-[11px] text-zinc-400 dark:text-zinc-600 flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+      <span>© {currentYear} {profileData.name}. All rights reserved.</span>
+      <span>Built with Astro & Tailwind CSS</span>
+    </div>
   </div>
 </footer>

@@ -23,14 +23,14 @@ const currentPath = Astro.url.pathname;
 
     <!-- Navigation links & Controls -->
     <div class="flex items-center gap-1 sm:gap-2">
-      <nav class="flex items-center gap-1 text-sm font-medium">
+      <nav class="flex items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-medium">
         {navItems.map((item) => {
           const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
           return (
             <a
               href={item.href}
               class:list={[
-                'px-3 py-1.5 rounded-md transition-colors',
+                'px-2.5 sm:px-3 py-1.5 rounded-md transition-colors',
                 isActive
                   ? 'text-forest-700 dark:text-forest-300 bg-forest-50 dark:bg-forest-950/70 font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-forest-700 dark:hover:text-forest-300 hover:bg-forest-50/50 dark:hover:bg-forest-950/40'
@@ -42,7 +42,7 @@ const currentPath = Astro.url.pathname;
         })}
       </nav>
 
-      <div class="h-4 w-px bg-forest-200 dark:bg-forest-900/60 mx-1"></div>
+      <div class="h-4 w-px bg-forest-200 dark:bg-forest-900/60 mx-0.5 sm:mx-1"></div>
 
       <!-- Dark/Light Theme Toggle -->
       <ThemeToggle />
