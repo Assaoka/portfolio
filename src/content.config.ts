@@ -2,18 +2,20 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const papers = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/papers' }),
+  loader: glob({ pattern: '**/*.{yaml,yml}', base: './src/content/papers' }),
   schema: z.object({
     title: z.string(),
-    authors: z.array(z.string()),
-    venue: z.string(), // ex: "NeurIPS 2025", "ICLR 2026", "arXiv preprint"
+    authors: z.string(),
+    super_tag: z.string(), // ex: "ENIAC 2026", "PROPOR 2026"
+    venue: z.string(), // ex: "ENIAC", "PROPOR"
     year: z.number(),
-    abstract: z.string(),
-    arxivUrl: z.string().url().optional(),
-    pdfUrl: z.string().url().optional(),
-    codeUrl: z.string().url().optional(),
+    firstAuthor: z.boolean().default(false),
+    tldr: z.string(),
+    abstract: z.string().optional(),
+    urls: z.record(z.string()).default({}),
     bibtex: z.string().optional(),
-    featured: z.boolean().default(false),
+    citations: z.number().optional(),
+    previewImage: z.string().optional(),
     tags: z.array(z.string()).default([]),
   }),
 });

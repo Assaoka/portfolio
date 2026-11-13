@@ -1,0 +1,37 @@
+title: "Evaluating Reference-Free Summarization Quality Metrics for Portuguese: A Study with Human Judgments in Financial News"
+authors: "**João Victor Assaoka Ribeiro**, Thomas Correia, José Vitor Requena, Lilian Berton"
+super_tag: "PROPOR 2026"
+venue: "PROPOR"
+year: 2026
+firstAuthor: true
+tldr: "Study analyzing reference-free summarization quality metrics for financial news in Portuguese, demonstrating that question-answering decomposition outperforms monolithic LLM judges against human annotators."
+abstract: "Automatic summarization of financial news in Portuguese lacks reliable reference-free evaluation metrics. While LLM-as-a-Judge approaches are gaining traction, their correlation with human perception in specialized domains remains under-explored. This work evaluates the efficacy of Question Answering (QA) based metrics against a direct LLM-as-a-Judge baseline for Portuguese financial news. We propose a pipeline comparing Lexical, Binary, and Semantic (LLM-based) QA scoring methods, validated against a human ground truth of 50 news items annotated for Faithfulness and Completeness. Our results show that granular QA metrics significantly outperform the monolithic LLM-Judge in evaluating Completeness, with QA-Binary achieving the highest rank correlation (ρ ≈ 0.49 with pessimistic human aggregation). For Faithfulness, we observe a strong ceiling effect in human evaluation, yet the Semantic QA metric demonstrated a “super-human” ability to detect subtle hallucinations (e.g., temporal shifts) missed by annotators. We conclude that decomposing evaluation into atomic QA pairs is superior to holistic judging for the Portuguese financial domain."
+tags:
+  - Summarization Evaluation
+  - LLM-as-a-Judge
+  - Financial News
+urls:
+  Read Publication: "https://aclanthology.org/2026.propor-1.89/"
+bibtex: |
+  @inproceedings{assaoka21026evaluating,
+      title = "Evaluating Reference-Free Summarization Quality Metrics for {P}ortuguese: A Study with Human Judgments in Financial News",
+      author = "Ribeiro, Jo{\~a}o Victor Assaoka  and
+        Correia, Thomas Pires  and
+        Requena, Jos{\'e} Vitor Souza Cardoso  and
+        Berton, Lilian",
+      editor = "Souza, Marlo  and
+        de-Dios-Flores, Iria  and
+        Santos, Diana  and
+        Freitas, Larissa  and
+        Souza, Jackson Wilke da Cruz  and
+        Ribeiro, Eug{\'e}nio",
+      booktitle = "Proceedings of the 17th International Conference on Computational Processing of {P}ortuguese ({PROPOR} 2026) - Vol. 1",
+      month = apr,
+      year = "2026",
+      address = "Salvador, Brazil",
+      publisher = "Association for Computational Linguistics",
+      url = "https://aclanthology.org/2026.propor-1.89/",
+      pages = "899--907",
+      ISBN = "979-8-89176-387-6",
+      abstract = "Automatic summarization of financial news in Portuguese lacks reliable reference-free evaluation metrics. While LLM-as-a-Judge approaches are gaining traction, their correlation with human perception in specialized domains remains under-explored. This work evaluates the efficacy of Question Answering (QA) based metrics against a direct LLM-as-a-Judge baseline for Portuguese financial news. We propose a pipeline comparing Lexical, Binary, and Semantic (LLM-based) QA scoring methods, validated against a human ground truth of 50 news items annotated for Faithfulness and Completeness. Our results show that granular QA metrics significantly outperform the monolithic LLM-Judge in evaluating Completeness, with QA-Binary achieving the highest rank correlation ({\ensuremath{\rho}} {\ensuremath{\approx}} 0.49 with pessimistic human aggregation). For Faithfulness, we observe a strong ceiling effect in human evaluation, yet the Semantic QA metric demonstrated a ``super-human'' ability to detect subtle hallucinations (e.g., temporal shifts) missed by annotators. We conclude that decomposing evaluation into atomic QA pairs is superior to holistic judging for the Portuguese financial domain."
+  }

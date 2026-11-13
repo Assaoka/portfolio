@@ -1,0 +1,30 @@
+title: "Negotiating LLMs for Enhanced Hate Speech Classification and Interpretability"
+authors: "**João Assaoka**, Lilian Berton"
+super_tag: "ENIAC 2025"
+venue: "ENIAC"
+year: 2025
+firstAuthor: true
+tldr: "Multi-LLM negotiation framework to improve classification precision and generate faithful rationales for toxicity detection in Portuguese."
+abstract: "Traditional hate speech classification frameworks rely on a single Large Language Model (LLM) operating in an isolated, single-turn decision-making process. However, this approach can suffer from limitations in handling nuanced linguistic phenomena such as sarcasm, ambiguity, and contextual shifts. To address these challenges, we introduce a multi-LLM negotiation framework, where two specialized models engage in iterative exchanges to refine the classification decision. The generator proposes a classification alongside a rationale, while the discriminator evaluates its credibility and requests adjustments until a consensus is reached. Experiments conducted on Twitter in Portuguese hate speech detection dataset, demonstrate that the negotiation-based approach using Sabizinho 3 and GPT 4.1 Nano with zero-shot, achieve competitive precision and recall. Furthermore, results indicate that this framework allow interpretability of the final classification."
+tags:
+  - LLM Collaboration
+  - Explainability
+  - Toxicity Detection
+urls:
+  Read Publication: "https://sol.sbc.org.br/index.php/eniac/article/view/38847"
+bibtex: |
+  @inproceedings{assaoka2025negotiating,
+    author = {João Assaoka and Lilian Berton},
+    title = { Negotiating LLMs for Enhanced Hate Speech Classification and Interpretability},
+    booktitle = {Anais do XXII Encontro Nacional de Inteligência Artificial e Computacional},
+    location = {Fortaleza/CE},
+    year = {2025},
+    keywords = {},
+    issn = {2763-9061},
+    pages = {1716--1727},
+    publisher = {SBC},
+    address = {Porto Alegre, RS, Brasil},
+    doi = {10.5753/eniac.2025.13886},
+    url = {https://sol.sbc.org.br/index.php/eniac/article/view/38847}
+  }
+

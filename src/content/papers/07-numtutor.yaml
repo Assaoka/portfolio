@@ -1,0 +1,25 @@
+title: "Supporting Quantitative Learning with AI: The Case of the NumTutor Platform for Numerical Methods"
+authors: "**João Assaoka**, Lucas Castelani Gouveia, Lucas Molinari, Luiz Leduino Salles-Neto, Thomas Pires Correia"
+super_tag: "SBPO 2025"
+venue: "SBPO"
+year: 2025
+firstAuthor: true
+tldr: "Development of NumTutor, an educational web platform for Numerical Calculation integrating interactive classical methods with step-by-step convergence visualizations, didactic content, and an AI virtual tutor chatbot."
+abstract: "This paper presents the development of NumTutor, an educational web platform aimed at teaching Numerical Calculation. The application integrates three main components: (i) the interactive implementation of classical numerical methods (such as bisection, Newton, and secant), accompanied by dynamic visualizations that allow the student to observe the convergence process step by step; (ii) explanatory and didactic content to theoretically support each algorithm; and (iii) a chatbot that serves as a virtual tutor, answering concept questions in natural language. The platform proves to be a promising tool to complement classes, enhancing autonomous learning in Numerical Calculation."
+tags:
+  - Educational AI
+  - Numerical Methods
+  - Interactive Learning
+urls:
+  Read Publication: "https://proceedings.science/sbpo/sbpo-2025/papers/supporting-quantitative-learning-with-ai-the-case-of-the-numtutor-platform-for-n?lang=en"
+  Live Platform: "https://numtutor.streamlit.app/"
+bibtex: |
+  @inproceedings{assaoka2025numtutor,
+    title={Supporting Quantitative Learning with AI: The Case of the NumTutor Platform for Numerical Methods},
+    author={Assaoka, Jo{\~a}o and Gouveia, Lucas Castelani and Molinari, Lucas and Salles-Neto, Luiz Leduino and Correia, Thomas Pires},
+    booktitle={Proceedings of the LVII Brazilian Symposium on Operations Research (SBPO)},
+    year={2025},
+    address={Gramado},
+    publisher={Galo{\'a}},
+    url={https://proceedings.science/sbpo/sbpo-2025/papers/supporting-quantitative-learning-with-ai-the-case-of-the-numtutor-platform-for-n?lang=en}
+  }

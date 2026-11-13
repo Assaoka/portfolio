@@ -1,0 +1,37 @@
+title: "A Multimodal Framework for Financial Fake News Detection for Brazilian Portuguese"
+authors: "José Vitor Requena, **João Assaoka**, Lilian Berton"
+super_tag: "PROPOR 2026"
+venue: "PROPOR"
+year: 2026
+firstAuthor: false
+tldr: "Multimodal architecture combining textual and visual signals for detecting financial misinformation and deceptive news in Brazilian Portuguese."
+abstract: "The rapid dissemination of digital information has exposed financial markets to the risks of disinformation. Although numerous methods exist to detect fake news, they predominantly focus on textual features, often neglecting the significant role of image-based content. This paper introduces a novel framework for detecting financial fake news in Brazilian Portuguese by bridging this gap. The proposed system integrates Natural Language Processing (NLP) with an image-to-text classification strategy: using a Tesseract-based OCR, the system extracts text from images and processes it using the unified pipeline used for text classification. Experiments on Fake.BR, FakeRecogna corpus and BBC News Brasil show that our approach achieves 98% accuracy using BERTimbau Fine Tuned on financial news. These findings underscore the critical importance of analyzing visual text and demonstrate the multimodal strategy is effective for disinformation detection."
+tags:
+  - Multimodal NLP
+  - Fake News Detection
+  - Financial Domain
+urls:
+  Read Publication: "https://aclanthology.org/2026.propor-1.23/"
+  App: "https://serasa-site-react-noticias.vercel.app/"
+bibtex: |
+  @inproceedings{requena2026multimodal,
+    title = "A Multimodal Framework for Financial Fake News Detection for {B}razilian {P}ortuguese",
+    author = "Requena, Jos{\'e} Vitor Souza Cardoso  and
+      Ribeiro, Jo{\~a}o Victor Assaoka  and
+      Berton, Lilian",
+    editor = "Souza, Marlo  and
+      de-Dios-Flores, Iria  and
+      Santos, Diana  and
+      Freitas, Larissa  and
+      Souza, Jackson Wilke da Cruz  and
+      Ribeiro, Eug{\'e}nio",
+    booktitle = "Proceedings of the 17th International Conference on Computational Processing of {P}ortuguese ({PROPOR} 2026) - Vol. 1",
+    month = apr,
+    year = "2026",
+    address = "Salvador, Brazil",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.propor-1.23/",
+    pages = "234--239",
+    ISBN = "979-8-89176-387-6",
+    abstract = "The rapid dissemination of digital information has exposed financial markets to the risks of disinformation. Although numerous methods exist to detect fake news, they predominantly focus on textual features, often neglecting the significant role of image-based content. This paper introduces a novel framework for detecting financial fake news in Brazilian Portuguese by bridging this gap. The proposed system integrates Natural Language Processing (NLP) with an image-to-text classification strategy: using a Tesseract-based OCR, the system extracts text from images and processes it using the unified pipeline used for text classification. Experiments on Fake.BR, FakeRecogna corpus and BBC News Brasil show that our approach achieves 98{\%} accuracy using BERTimbau Fine Tuned on financial news. These findings underscore the critical importance of analyzing visual text and demonstrate the multimodal strategy is effective for disinformation detection."
+  }
