@@ -1,0 +1,12 @@
+title: "UNIFESP — Algorithms & Data Structures I"
+description: "Open-source repository sharing summaries, proposed exercises, and complete solutions in C for the Algorithms and Data Structures I course at UNIFESP (2nd semester of 2023)."
+role: "Author"
+year: 2023
+super_tag: "Education"
+featured: 70
+tags:
+  - C
+  - Algorithms
+  - Data Structures
+urls:
+  GitHub: "https://github.com/Assaoka/UNIFESP--Algoritmos_e_Estruturas_de_Dados_I"

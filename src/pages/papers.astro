@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { ArrowDownUp, Check, ChevronDown, ExternalLink, Search } from 'lucide-astro';
+import { ArrowDownUp, Check, ChevronDown, ExternalLink, GraduationCap, Search } from 'lucide-astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PaperCard from '../components/papers/PaperCard.astro';
 import { fetchScholarMetrics, getPaperCitations, scholarConfig } from '../lib/scholar';
@@ -33,15 +33,10 @@ const venues = [...new Set(enrichedPapers.map((p) => p.venue))].sort((a, b) =>
   description="Academic publications by João Assaoka in Natural Language Processing, Model Merging, Multimodal Learning, and Financial AI."
 >
   <section class="py-8 sm:py-12">
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-      <div>
-        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
-          Publications
-        </h1>
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-          Peer-reviewed papers in NLP, Model Merging, Multimodal Learning, and Financial AI.
-        </p>
-      </div>
+    <div class="flex items-center justify-between gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
+        Publications
+      </h1>
 
       {scholarConfig.scholarUrl && (
         <a
@@ -50,6 +45,7 @@ const venues = [...new Set(enrichedPapers.map((p) => p.venue))].sort((a, b) =>
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-forest-700 dark:text-forest-400 hover:underline shrink-0"
         >
+          <GraduationCap class="w-4 h-4" />
           <span>Google Scholar</span>
           <ExternalLink class="w-3.5 h-3.5" />
         </a>

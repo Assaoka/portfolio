@@ -1,0 +1,15 @@
+title: "NumTutor — AI Platform for Numerical Methods"
+description: "Educational web platform for Numerical Calculation integrating interactive classical methods (bisection, Newton, secant) with step-by-step convergence visualizations, didactic content, and an AI virtual tutor chatbot."
+role: "Co-Creator & AI Developer"
+year: 2025
+super_tag: "Education"
+featured: 100
+tags:
+  - Python
+  - Streamlit
+  - LLMs
+  - Numerical Methods
+  - Web
+urls:
+  Live Platform: "https://numtutor.streamlit.app/"
+  Paper: "https://proceedings.science/sbpo/sbpo-2025/papers/supporting-quantitative-learning-with-ai-the-case-of-the-numtutor-platform-for-n?lang=en"

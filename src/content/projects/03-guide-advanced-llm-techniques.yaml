@@ -1,0 +1,15 @@
+title: "Guide to Advanced LLM Techniques"
+description: "Complete, practical tutorial exploring advanced methodologies for sentiment and emotion classification in text using Large Language Models (LLMs), with all examples executable in free environments like Google Colab."
+role: "Author"
+year: 2025
+super_tag: "Generative AI"
+featured: 80
+tags:
+  - Python
+  - Jupyter Notebook
+  - LLMs
+  - Google Colab
+  - Prompt Engineering
+  - Fine-Tuning
+urls:
+  GitHub: "https://github.com/Assaoka/Guide-to-Advanced-LLM-Techniques"
