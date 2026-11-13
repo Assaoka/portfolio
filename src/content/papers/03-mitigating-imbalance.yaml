@@ -1,0 +1,29 @@
+title: "Mitigating Imbalance in Portuguese Toxicity Classification via LLM Augmentation and Cross-Dataset Label Propagation"
+authors: "José Vitor Requena, **João Assaoka**, Lilian Berton"
+super_tag: "ENIAC 2026"
+venue: "ENIAC"
+year: 2026
+firstAuthor: false
+tldr: "Investigation into data scarcity and class imbalance in toxic speech detection, evaluating LLM-based synthetic generation and cross-dataset label propagation strategies in Portuguese."
+abstract: "The automated detection of fine-grained hate speech subclasses, such as sexism, homophobia, and fatphobia, is essential for cultivating safer online ecosystems and developing tailored content moderation policies. However, state-of-the-art NLP models face bottlenecks when dealing with minority toxic categories due to extreme class imbalance. In this work, we address this limitation within the context of the Portuguese language by implementing a comprehensive framework combining Large Language Model (LLM)-based data augmentation with domain-adapted transformer fine-tuning. Using the multi-labeled HateBR dataset as our base corpus, we employ Google’s Gemini model to perform targeted text generation, synthesizing high-quality training instances exclusively for underrepresented subclasses. We then fine-tune BERTabaporu, a language model pre-trained specifically for Portuguese social media text. Our empirical evaluation across multiple independent random seeds shows that LLM-based data augmentation yields a 31.2% relative improvement in Macro-F1 score (increasing from 0.3905 to 0.5124) over the original HateBR baseline, driven by substantial performance gains in challenging minority classes like fatphobia (+0.5171) and homophobia (+0.3467). Furthermore, we validate the out-of-domain transferability of our optimal model via a cross-dataset pseudo-labeling pipeline. By applying strict confidence and low-entropy criteria, the classifier successfully propagated fine-grained taxonomic labels onto three external binary Portuguese datasets. This automated curation effort yielded an expanded, high-certainty multiclass corpus consisting of 8,726 annotated instances. Our findings demonstrate that integrating generative datacentric AI with specialized encoders offers a powerful, scalable paradigm for mitigating data scarcity and advancing fine-grained toxicity detection in low-resource contexts."
+tags:
+  - Data Augmentation
+  - Toxicity Classification
+  - Imbalanced Learning
+urls:
+  Read Publication: "https://sol.sbc.org.br/index.php/eniac/article/view/47028"
+bibtex: |
+  @inproceedings{requena2026mitigating,
+    author = {José Vitor Sousa Cardoso Requena and João Victor Assaoka and Lilian Berton},
+    title = { Mitigating Imbalance in Portuguese Toxicity Classification via LLM Augmentation and Cross-Dataset Label Propagation},
+    booktitle = {Anais do XXIII Encontro Nacional de Inteligência Artificial e Computacional},
+    location = {Cuiabá/MT},
+    year = {2026},
+    keywords = {},
+    issn = {2763-9061},
+    pages = {3011--3022},
+    publisher = {SBC},
+    address = {Porto Alegre, RS, Brasil},
+    doi = {10.5753/eniac.2026.31052},
+    url = {https://sol.sbc.org.br/index.php/eniac/article/view/47028}
+  }

@@ -1,0 +1,31 @@
+title: "United Experts: Efficient Multi-Task Sentiment Analysis in Portuguese via Model Merging"
+authors: "**João Assaoka**, Evangelos Milios, Vlado Keselj, José Vitor Requena, Diego Miranda, Lilian Berton"
+super_tag: "ENIAC 2026"
+venue: "ENIAC"
+year: 2026
+firstAuthor: true
+tldr: "Reduced multi-task model creation time to just 0.5% of standard fine-tuning by merging specialist LLM checkpoints without performance degradation. Joint work during research visit with Dalhousie University."
+abstract: "Building robust multi-task models for sentiment analysis traditionally relies on joint training, which can be computationally prohibitive and susceptible to dataset imbalance. As an efficient alternative, we evaluate the application of model merging to combine independently trained Portuguese Small Language Models (SLMs). By fusing five distinct domain experts, we aggregate capabilities at zero additional optimization cost. Empirical results indicate that while joint training serves as a competitive empirical baseline, model merging successfully preserves individual domain expertise and offers a significantly superior compute-performance tradeoff. Additionally, we highlight the utility of merged weights as powerful prior initializations, significantly improving cross-domain transfer performance and reducing the cost of adapting the model to new, unseen domains."
+tags:
+  - Model Merging
+  - Multi-Task Learning
+  - Resource-Efficient NLP
+  - LLM
+urls:
+  Read Publication: "https://sol.sbc.org.br/index.php/eniac/article/view/47030"
+  Models: "https://huggingface.co/collections/Assaoka/united-experts-merging-slms-for-multi-task-sentiment-analys"
+bibtex: |
+  @inproceedings{assaoka2026united,
+    author = {João Assaoka and Evangelos Milios and Vlado Keselj and José Vitor Sousa Cardoso Requena and Diego de Almeida Miranda and Lilian Berton},
+    title = { United Experts: Efficient Multi-Task Sentiment Analysis in Portuguese via Model Merging},
+    booktitle = {Anais do XXIII Encontro Nacional de Inteligência Artificial e Computacional},
+    location = {Cuiabá/MT},
+    year = {2026},
+    keywords = {},
+    issn = {2763-9061},
+    pages = {3035--3046},
+    publisher = {SBC},
+    address = {Porto Alegre, RS, Brasil},
+    doi = {10.5753/eniac.2026.31064},
+    url = {https://sol.sbc.org.br/index.php/eniac/article/view/47030}
+  }
