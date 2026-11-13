@@ -1,0 +1,227 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Quiz from '../../components/blog/Quiz.astro';
+import { ArrowLeft, Calendar, Clock } from 'lucide-astro';
+import 'katex/dist/katex.min.css';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\/index$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+function estimateReadingTime(body: string | undefined): number {
+  if (!body) return 1;
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+const readingTimeMinutes = estimateReadingTime(post.body);
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+
+const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout title={`${post.data.title} | João Assaoka`} description={post.data.description}>
+  <section class="py-6 sm:py-10">
+    <a
+      href="/blog"
+      class="mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-forest-700 dark:hover:text-forest-400 transition-colors"
+    >
+      <ArrowLeft class="h-4 w-4" />
+      Back to Blog
+    </a>
+
+    <article>
+      <header class="mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-8">
+        <div class="mb-4 flex flex-wrap items-center gap-3 text-xs font-medium text-forest-700 dark:text-forest-400">
+          <span class="inline-flex items-center gap-1.5">
+            <Calendar class="h-3.5 w-3.5" />
+            <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
+          </span>
+          <span class="text-neutral-300 dark:text-neutral-700">·</span>
+          <span class="inline-flex items-center gap-1.5 text-neutral-500 dark:text-neutral-400">
+            <Clock class="h-3.5 w-3.5" />
+            {readingTimeMinutes} min read
+          </span>
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          {post.data.title}
+        </h1>
+
+        <p class="mt-3 text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          {post.data.description}
+        </p>
+
+        {post.data.tags.length > 0 && (
+          <div class="mt-5 flex flex-wrap gap-1.5">
+            {post.data.tags.map((tag) => (
+              <span class="rounded-md bg-neutral-100 dark:bg-neutral-800 px-2.5 py-0.5 text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {tocHeadings.length > 0 && (
+        <nav
+          aria-label="Table of Contents"
+          class="mb-10 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 p-5"
+        >
+          <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+            Table of Contents
+          </h2>
+          <ul class="space-y-1.5 text-sm">
+            {tocHeadings.map((h) => (
+              <li class={h.depth === 3 ? 'pl-4' : ''}>
+                <a
+                  href={`#${h.slug}`}
+                  class="text-neutral-700 dark:text-neutral-300 hover:text-forest-700 dark:hover:text-forest-400 transition-colors"
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      <div class="blog-prose prose prose-neutral dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-h2:text-forest-700 dark:prose-h2:text-forest-400 prose-a:text-forest-700 dark:prose-a:text-forest-400 prose-a:no-underline hover:prose-a:underline prose-pre:rounded-xl prose-pre:border prose-pre:border-neutral-200 dark:prose-pre:border-neutral-800 prose-img:rounded-xl prose-img:border prose-img:border-neutral-200 dark:prose-img:border-neutral-800">
+        <Content components={{ Quiz }} />
+      </div>
+    </article>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* Clean inline code (without Typography backticks) */
+  .blog-prose :not(pre) > code::before,
+  .blog-prose :not(pre) > code::after {
+    content: none !important;
+  }
+
+  .blog-prose :not(pre) > code {
+    background-color: rgb(245 245 245);
+    color: #215a36;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.375rem;
+    font-size: 0.85em;
+    font-weight: 500;
+    border: 1px solid rgb(229 229 229);
+  }
+
+  html.dark .blog-prose :not(pre) > code {
+    background-color: rgb(38 38 38 / 0.85);
+    color: #6fa382;
+    border-color: rgb(64 64 64 / 0.8);
+  }
+
+  .blog-prose .expressive-code {
+    margin: 1.5rem 0;
+  }
+
+  /* Mermaid diagram wrapper */
+  .mermaid-diagram {
+    display: flex;
+    justify-content: center;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    border: 1px solid rgb(229 229 229);
+    background-color: #ffffff;
+    overflow-x: auto;
+  }
+
+  html.dark .mermaid-diagram {
+    border-color: rgb(38 38 38);
+    background-color: rgb(23 23 23 / 0.6);
+  }
+</style>
+
+<script>
+  async function renderMermaidBlocks() {
+    const preBlocks = document.querySelectorAll<HTMLPreElement>(
+      'pre[data-language="mermaid"], pre:has(code.language-mermaid)'
+    );
+    if (preBlocks.length === 0) return;
+
+    const { default: mermaid } = await import('mermaid');
+    const isDark = document.documentElement.classList.contains('dark');
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: isDark ? 'dark' : 'default',
+    });
+
+    for (let i = 0; i < preBlocks.length; i++) {
+      const pre = preBlocks[i];
+      const ecWrapper = pre.closest('.expressive-code');
+      const lines = pre.querySelectorAll('.ec-line .code');
+      const code =
+        lines.length > 0
+          ? Array.from(lines)
+              .map((el) => el.textContent ?? '')
+              .join('\n')
+          : pre.textContent || '';
+      const container = document.createElement('div');
+      container.className = 'mermaid-diagram';
+      try {
+        const { svg } = await mermaid.render(`mermaid-${i}-${Date.now()}`, code);
+        container.innerHTML = svg;
+        (ecWrapper || pre).replaceWith(container);
+      } catch {
+        // Leave original code block on syntax error
+      }
+    }
+  }
+
+  function addHeadingCopyLinks() {
+    const headings = document.querySelectorAll<HTMLElement>(
+      '.blog-prose h2[id], .blog-prose h3[id], .blog-prose h4[id]'
+    );
+
+    headings.forEach((heading) => {
+      if (heading.querySelector('.heading-copy-btn')) return;
+
+      heading.classList.add('group', 'flex', 'items-center', 'gap-2');
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className =
+        'heading-copy-btn opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity inline-flex items-center gap-1 text-xs font-normal text-neutral-400 hover:text-forest-700 dark:hover:text-forest-400';
+      btn.title = 'Copy link to section';
+      btn.setAttribute('aria-label', `Copy link to ${heading.textContent}`);
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+
+      btn.addEventListener('click', async () => {
+        const url = `${window.location.origin}${window.location.pathname}#${heading.id}`;
+        await navigator.clipboard.writeText(url);
+        const original = btn.innerHTML;
+        btn.innerHTML = `<span class="text-forest-700 dark:text-forest-400 font-medium">Copied!</span>`;
+        btn.classList.remove('opacity-0');
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.classList.add('opacity-0');
+        }, 1500);
+      });
+
+      heading.appendChild(btn);
+    });
+  }
+
+  renderMermaidBlocks();
+  addHeadingCopyLinks();
+</script>
