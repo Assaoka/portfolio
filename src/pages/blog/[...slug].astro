@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Quiz from '../../components/blog/Quiz.astro';
 import { ArrowLeft, Calendar, Clock } from 'lucide-astro';
 import 'katex/dist/katex.min.css';
 
@@ -99,7 +100,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
       )}
 
       <div class="blog-prose prose prose-neutral dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-h2:text-forest-700 dark:prose-h2:text-forest-400 prose-a:text-forest-700 dark:prose-a:text-forest-400 prose-a:no-underline hover:prose-a:underline prose-pre:rounded-xl prose-pre:border prose-pre:border-neutral-200 dark:prose-pre:border-neutral-800 prose-img:rounded-xl prose-img:border prose-img:border-neutral-200 dark:prose-img:border-neutral-800">
-        <Content />
+        <Content components={{ Quiz }} />
       </div>
     </article>
   </section>

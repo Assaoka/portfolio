@@ -1,0 +1,371 @@
+---
+import katex from 'katex';
+import { marked } from 'marked';
+import { CheckCircle2, HelpCircle, RotateCcw, XCircle } from 'lucide-astro';
+
+export interface QuizQuestion {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+interface Props {
+  title?: string;
+  questions?: QuizQuestion[];
+  question?: string;
+  options?: string[];
+  correctIndex?: number;
+  explanation?: string;
+}
+
+const {
+  title = 'Knowledge Check',
+  questions,
+  question,
+  options,
+  correctIndex,
+  explanation,
+} = Astro.props;
+
+const items: QuizQuestion[] =
+  questions && questions.length > 0
+    ? questions
+    : question && options && correctIndex !== undefined && explanation
+      ? [{ question, options, correctIndex, explanation }]
+      : [];
+
+function renderRichText(input: string): string {
+  const mathHtml: string[] = [];
+
+  const withDisplayMath = input.replace(/\$\$([\s\S]+?)\$\$/g, (_, expr: string) => {
+    const idx = mathHtml.length;
+    mathHtml.push(katex.renderToString(expr.trim(), { displayMode: true, throwOnError: false }));
+    return `@@MATH${idx}@@`;
+  });
+
+  const withInlineMath = withDisplayMath.replace(/\$([^$\n]+?)\$/g, (_, expr: string) => {
+    const idx = mathHtml.length;
+    mathHtml.push(katex.renderToString(expr.trim(), { displayMode: false, throwOnError: false }));
+    return `@@MATH${idx}@@`;
+  });
+
+  const renderedMarkdown = marked.parseInline(withInlineMath) as string;
+
+  return renderedMarkdown.replace(/@@MATH(\d+)@@/g, (_, idx: string) => mathHtml[Number(idx)] ?? '');
+}
+
+const renderedItems = items.map((item) => ({
+  questionHtml: renderRichText(item.question),
+  optionsHtml: item.options.map((opt) => renderRichText(opt)),
+  correctIndex: item.correctIndex,
+  explanationHtml: renderRichText(item.explanation),
+}));
+
+const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+---
+
+{
+  renderedItems.length > 0 && (
+    <section class="not-prose my-8 space-y-4" data-quiz-root data-total={String(renderedItems.length)}>
+      <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/70 px-4 py-3">
+        <div class="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+          <HelpCircle class="h-4 w-4 text-forest-700 dark:text-forest-400" />
+          <span>{title}</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span
+            data-quiz-score
+            class="rounded-md bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-2.5 py-1 text-xs font-medium text-neutral-700 dark:text-neutral-300"
+          >
+            Score: 0 / {renderedItems.length}
+          </span>
+          <button
+            type="button"
+            data-quiz-reset
+            class="hidden inline-flex items-center gap-1.5 rounded-md border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:border-forest-500 hover:text-forest-700 dark:hover:text-forest-400 transition-colors"
+          >
+            <RotateCcw class="h-3.5 w-3.5" />
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-5">
+        {renderedItems.map((item, qIdx) => (
+          <div
+            data-quiz-question
+            data-correct-index={String(item.correctIndex)}
+            data-correct-letter={letters[item.correctIndex] ?? String(item.correctIndex + 1)}
+            class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 p-5 sm:p-6 transition-colors"
+          >
+            <div class="mb-4 flex items-start gap-2.5 text-sm sm:text-base font-medium text-neutral-900 dark:text-neutral-100 leading-relaxed">
+              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-forest-50 dark:bg-forest-950/60 text-xs font-semibold text-forest-700 dark:text-forest-400 border border-forest-200 dark:border-forest-800/70">
+                {qIdx + 1}
+              </span>
+              <div class="quiz-rich" set:html={item.questionHtml} />
+            </div>
+
+            <div class="space-y-2.5" role="radiogroup" aria-label={`Question ${qIdx + 1}`}>
+              {item.optionsHtml.map((optHtml, optIdx) => (
+                <button
+                  type="button"
+                  data-quiz-option
+                  data-option-index={String(optIdx)}
+                  class="w-full text-left flex items-start gap-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950/40 px-3.5 py-3 text-sm text-neutral-800 dark:text-neutral-200 hover:border-forest-400 dark:hover:border-forest-600 hover:bg-forest-50/40 dark:hover:bg-forest-950/20 transition-all cursor-pointer"
+                >
+                  <span
+                    data-option-badge
+                    class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-xs font-semibold text-neutral-600 dark:text-neutral-300"
+                  >
+                    {letters[optIdx] ?? optIdx + 1}
+                  </span>
+                  <span class="quiz-rich flex-1 leading-relaxed" set:html={optHtml} />
+                </button>
+              ))}
+            </div>
+
+            <div
+              data-quiz-feedback
+              class="hidden mt-4 rounded-lg border px-4 py-3 text-sm leading-relaxed"
+            >
+              <div class="mb-1.5 flex items-center gap-2 font-semibold" data-feedback-status>
+                <CheckCircle2 data-icon-correct class="hidden h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <XCircle data-icon-wrong class="hidden h-4 w-4 text-red-600 dark:text-red-400 shrink-0" />
+                <span data-feedback-label />
+              </div>
+              <div class="quiz-rich text-neutral-700 dark:text-neutral-300" set:html={item.explanationHtml} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style is:global>
+  .quiz-rich code {
+    background-color: rgb(245 245 245);
+    color: #215a36;
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.3rem;
+    font-size: 0.85em;
+    font-weight: 500;
+    border: 1px solid rgb(229 229 229);
+  }
+
+  html.dark .quiz-rich code {
+    background-color: rgb(38 38 38 / 0.85);
+    color: #6fa382;
+    border-color: rgb(64 64 64 / 0.8);
+  }
+</style>
+
+<script>
+  const OPT_IDLE = [
+    'border-neutral-200',
+    'dark:border-neutral-800',
+    'bg-white',
+    'dark:bg-neutral-950/40',
+    'text-neutral-800',
+    'dark:text-neutral-200',
+    'hover:border-forest-400',
+    'dark:hover:border-forest-600',
+    'hover:bg-forest-50/40',
+    'dark:hover:bg-forest-950/20',
+    'cursor-pointer',
+  ];
+
+  const OPT_CORRECT = [
+    'border-emerald-500',
+    'dark:border-emerald-500',
+    'bg-emerald-50/80',
+    'dark:bg-emerald-950/40',
+    'text-emerald-900',
+    'dark:text-emerald-200',
+  ];
+
+  const OPT_WRONG = [
+    'border-red-500',
+    'dark:border-red-500',
+    'bg-red-50/80',
+    'dark:bg-red-950/40',
+    'text-red-900',
+    'dark:text-red-200',
+  ];
+
+  const OPT_REVEAL_CORRECT = [
+    'border-emerald-400',
+    'dark:border-emerald-600',
+    'bg-emerald-50/50',
+    'dark:bg-emerald-950/25',
+    'text-emerald-900',
+    'dark:text-emerald-200',
+  ];
+
+  const OPT_DIMMED = ['opacity-65'];
+
+  const BADGE_IDLE = [
+    'border-neutral-300',
+    'dark:border-neutral-700',
+    'bg-neutral-50',
+    'dark:bg-neutral-800',
+    'text-neutral-600',
+    'dark:text-neutral-300',
+  ];
+
+  const BADGE_CORRECT = [
+    'border-emerald-500',
+    'bg-emerald-600',
+    'text-white',
+    'dark:border-emerald-500',
+    'dark:bg-emerald-600',
+    'dark:text-white',
+  ];
+
+  const BADGE_WRONG = [
+    'border-red-500',
+    'bg-red-600',
+    'text-white',
+    'dark:border-red-500',
+    'dark:bg-red-600',
+    'dark:text-white',
+  ];
+
+  const FB_CORRECT = [
+    'border-emerald-200',
+    'dark:border-emerald-800/70',
+    'bg-emerald-50/60',
+    'dark:bg-emerald-950/30',
+  ];
+
+  const FB_WRONG = [
+    'border-red-200',
+    'dark:border-red-800/70',
+    'bg-red-50/60',
+    'dark:bg-red-950/30',
+  ];
+
+  function initQuizzes() {
+    const roots = document.querySelectorAll<HTMLElement>('[data-quiz-root]');
+    roots.forEach((root) => {
+      if (root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+
+      const total = Number(root.dataset.total || '0');
+      const scoreEl = root.querySelector<HTMLElement>('[data-quiz-score]');
+      const resetBtn = root.querySelector<HTMLButtonElement>('[data-quiz-reset]');
+      const questionCards = root.querySelectorAll<HTMLElement>('[data-quiz-question]');
+
+      function updateScore() {
+        let answeredCount = 0;
+        let correctCount = 0;
+        questionCards.forEach((card) => {
+          if (card.dataset.answered === 'true') {
+            answeredCount++;
+            if (card.dataset.isCorrect === 'true') correctCount++;
+          }
+        });
+        if (scoreEl) {
+          scoreEl.textContent = `Score: ${correctCount} / ${total}`;
+        }
+        if (resetBtn) {
+          resetBtn.classList.toggle('hidden', answeredCount === 0);
+        }
+      }
+
+      questionCards.forEach((card) => {
+        const correctIdx = Number(card.dataset.correctIndex || '0');
+        const correctLetter = card.dataset.correctLetter || '';
+        const options = card.querySelectorAll<HTMLButtonElement>('[data-quiz-option]');
+        const feedback = card.querySelector<HTMLElement>('[data-quiz-feedback]');
+        const feedbackLabel = card.querySelector<HTMLElement>('[data-feedback-label]');
+        const iconCorrect = card.querySelector<SVGElement>('[data-icon-correct]');
+        const iconWrong = card.querySelector<SVGElement>('[data-icon-wrong]');
+
+        options.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            if (card.dataset.answered === 'true') return;
+
+            const chosenIdx = Number(btn.dataset.optionIndex || '0');
+            const isCorrect = chosenIdx === correctIdx;
+
+            card.dataset.answered = 'true';
+            card.dataset.isCorrect = String(isCorrect);
+
+            options.forEach((optBtn) => {
+              const idx = Number(optBtn.dataset.optionIndex || '0');
+              const badge = optBtn.querySelector<HTMLElement>('[data-option-badge]');
+              optBtn.disabled = true;
+              optBtn.classList.remove(...OPT_IDLE);
+              optBtn.classList.add('cursor-default');
+
+              if (idx === chosenIdx && isCorrect) {
+                optBtn.classList.add(...OPT_CORRECT);
+                badge?.classList.remove(...BADGE_IDLE);
+                badge?.classList.add(...BADGE_CORRECT);
+              } else if (idx === chosenIdx && !isCorrect) {
+                optBtn.classList.add(...OPT_WRONG);
+                badge?.classList.remove(...BADGE_IDLE);
+                badge?.classList.add(...BADGE_WRONG);
+              } else if (idx === correctIdx && !isCorrect) {
+                optBtn.classList.add(...OPT_REVEAL_CORRECT);
+                badge?.classList.remove(...BADGE_IDLE);
+                badge?.classList.add(...BADGE_CORRECT);
+              } else {
+                optBtn.classList.add(...OPT_IDLE.filter((c) => !c.startsWith('hover:') && c !== 'cursor-pointer'));
+                optBtn.classList.add(...OPT_DIMMED);
+              }
+            });
+
+            if (feedback && feedbackLabel) {
+              feedback.classList.remove('hidden', ...FB_CORRECT, ...FB_WRONG);
+              feedback.classList.add(...(isCorrect ? FB_CORRECT : FB_WRONG));
+              feedbackLabel.textContent = isCorrect
+                ? 'Correct!'
+                : `Not quite — Option ${correctLetter} is correct`;
+              feedbackLabel.className = isCorrect
+                ? 'text-emerald-700 dark:text-emerald-300'
+                : 'text-red-700 dark:text-red-300';
+              iconCorrect?.classList.toggle('hidden', !isCorrect);
+              iconWrong?.classList.toggle('hidden', isCorrect);
+            }
+
+            updateScore();
+          });
+        });
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        questionCards.forEach((card) => {
+          delete card.dataset.answered;
+          delete card.dataset.isCorrect;
+
+          const options = card.querySelectorAll<HTMLButtonElement>('[data-quiz-option]');
+          const feedback = card.querySelector<HTMLElement>('[data-quiz-feedback]');
+          const iconCorrect = card.querySelector<SVGElement>('[data-icon-correct]');
+          const iconWrong = card.querySelector<SVGElement>('[data-icon-wrong]');
+
+          options.forEach((optBtn) => {
+            const badge = optBtn.querySelector<HTMLElement>('[data-option-badge]');
+            optBtn.disabled = false;
+            optBtn.classList.remove(...OPT_CORRECT, ...OPT_WRONG, ...OPT_REVEAL_CORRECT, ...OPT_DIMMED, 'cursor-default');
+            optBtn.classList.add(...OPT_IDLE);
+            badge?.classList.remove(...BADGE_CORRECT, ...BADGE_WRONG);
+            badge?.classList.add(...BADGE_IDLE);
+          });
+
+          feedback?.classList.add('hidden');
+          feedback?.classList.remove(...FB_CORRECT, ...FB_WRONG);
+          iconCorrect?.classList.add('hidden');
+          iconWrong?.classList.add('hidden');
+        });
+
+        updateScore();
+      });
+    });
+  }
+
+  initQuizzes();
+</script>
