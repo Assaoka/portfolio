@@ -1,0 +1,13 @@
+title: "Grade Ideal RKO — UNIFESP Course Timetabling Optimization"
+description: "Research project applying Random-Key Optimizer (RKO) and mathematical optimization to analyze student course demand and generate fairer, conflict-free university timetables at UNIFESP."
+role: "Researcher"
+year: 2025
+super_tag: "Operations Research"
+featured: -1
+tags:
+  - Python
+  - RKO
+  - Mathematical Optimization
+  - Operations Research
+urls:
+  GitHub: "https://github.com/Assaoka/Grade_Ideal_RKO--UNIFESP"

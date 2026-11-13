@@ -21,17 +21,18 @@ const papers = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
+  loader: glob({ pattern: '**/*.{yaml,yml}', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    role: z.string(), // ex: "Lead Architect", "Solo Developer"
-    date: z.coerce.date(),
-    techStack: z.array(z.string()), // ex: ["PyTorch", "vLLM", "Triton", "TypeScript"]
-    githubUrl: z.string().url().optional(),
-    liveUrl: z.string().url().optional(),
-    paperSlug: z.string().optional(), // Vincula o projeto ao paper correspondente
-    featured: z.boolean().default(false),
+    role: z.string().optional(), // e.g., "Solo Developer", "Lead Architect"
+    year: z.number(),
+    super_tag: z.string(), // e.g., "Generative AI", "Educational AI", "Web"
+    tags: z.array(z.string()).default([]),
+    urls: z.record(z.string()).default({}),
+    previewImage: z.string().optional(),
+    featured: z.number().default(0),
+    paperSlug: z.string().optional(),
   }),
 });
 

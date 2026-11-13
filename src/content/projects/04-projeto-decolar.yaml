@@ -1,0 +1,14 @@
+title: "Projeto Decolar — Programming & Data Science"
+description: "Teaching materials and interactive notebooks developed for Projeto Decolar (Prefeitura de São José dos Campos), introducing Programming Logic and Data Science to gifted high school students."
+role: "Instructor"
+year: 2025
+super_tag: "Education"
+featured: -1
+tags:
+  - Python
+  - Jupyter Notebook
+  - Data Science
+  - Programming Logic
+urls:
+  Programming Logic: "https://github.com/Assaoka/Decolar--Logica_de_Programacao"
+  Data Science: "https://github.com/Assaoka/Decolar--Introducao_a_Ciencia_de_Dados"

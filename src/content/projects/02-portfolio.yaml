@@ -1,0 +1,14 @@
+title: "Personal Portfolio"
+description: "Fast, accessible personal portfolio and academic hub built with Astro, Tailwind CSS, YAML Content Collections, PostHog analytics, deployment on Vercel, and automated CI."
+role: "Developer"
+year: 2026
+super_tag: "Web"
+featured: 90
+tags:
+  - Astro
+  - TypeScript
+  - Tailwind CSS
+  - Vercel
+urls:
+  Live Site: "https://assaoka.com"
+  GitHub: "https://github.com/Assaoka/portfolio"
