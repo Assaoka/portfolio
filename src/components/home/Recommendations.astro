@@ -1,0 +1,124 @@
+---
+import { Quote, Linkedin, ArrowUpRight } from 'lucide-astro';
+import { recommendationsData } from '../../data/recommendations';
+
+/**
+ * Converte a sintaxe Obsidian `==texto==` em marca-texto estilizado (`<mark>`)
+ * e separa parágrafos por quebra de linha dupla.
+ */
+function formatRecommendation(rawText: string): string[] {
+  return rawText
+    .trim()
+    .split(/\n\s*\n/)
+    .map((paragraph) =>
+      paragraph.replace(
+        /==([^=]+)==/g,
+        '<mark class="bg-forest-100/90 dark:bg-forest-800/50 text-forest-950 dark:text-forest-100 px-1 py-0.5 rounded not-italic font-medium">$1</mark>'
+      )
+    );
+}
+
+// Exibe na Home apenas as 4 principais recomendações para manter a página enxuta
+const featuredRecommendations = recommendationsData.slice(0, 4);
+---
+
+<section id="recommendations" class="py-8 border-t border-forest-100 dark:border-forest-900/40 scroll-mt-20 sm:scroll-mt-24">
+  <div class="flex items-end justify-between mb-6">
+    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
+      Recommendations
+    </h2>
+    <a
+      href="https://www.linkedin.com/in/assaoka/details/recommendations/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-xs sm:text-sm font-medium text-forest-700 dark:text-forest-400 hover:underline inline-flex items-center gap-1"
+    >
+      <span>View all on LinkedIn</span>
+      <ArrowUpRight class="w-3.5 h-3.5" />
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {featuredRecommendations.map((item) => {
+      const paragraphs = formatRecommendation(item.text);
+      const isLong = item.text.length > 280 || paragraphs.length > 1;
+      return (
+        <article class="flex flex-col justify-between p-5 rounded-xl border border-forest-100 dark:border-forest-900/40 bg-[#ffffff]/60 dark:bg-[#0c140f]/60 hover:border-forest-300 dark:hover:border-forest-700/60 transition-all duration-200 space-y-4">
+          <div class="space-y-3">
+            <Quote class="w-5 h-5 text-forest-600/50 dark:text-forest-400/50" />
+            <div
+              class:list={[
+                'recommendation-text space-y-2 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed italic',
+                isLong && 'line-clamp-7',
+              ]}
+            >
+              {paragraphs.map((p, idx) => {
+                const isFirst = idx === 0;
+                const isLast = idx === paragraphs.length - 1;
+                const translatedNote =
+                  isLast && item.translated
+                    ? ' <span class="not-italic text-xs text-zinc-400 dark:text-zinc-500">(Translated from Portuguese)</span>'
+                    : '';
+                const html = `${isFirst ? '"' : ''}${p}${isLast ? '"' : ''}${translatedNote}`;
+                return <p set:html={html} />;
+              })}
+            </div>
+            {isLong && (
+              <button
+                type="button"
+                class="read-more-btn text-xs font-medium text-forest-700 dark:text-forest-400 hover:underline focus:outline-none"
+              >
+                Read more
+              </button>
+            )}
+          </div>
+
+          <div class="pt-3 border-t border-forest-100/70 dark:border-forest-900/40 flex items-end justify-between gap-2">
+            <div class="min-w-0">
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
+                {item.author}
+              </h3>
+              <p class="text-xs text-forest-700 dark:text-forest-400 leading-snug">
+                {item.role}
+              </p>
+              {item.relationship && (
+                <p class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  {item.relationship}
+                </p>
+              )}
+            </div>
+
+            {item.authorUrl && (
+              <a
+                href={item.authorUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${item.author} on LinkedIn`}
+                title={`${item.author} on LinkedIn`}
+                class="shrink-0 p-1.5 rounded-lg text-zinc-400 hover:text-forest-700 dark:hover:text-forest-400 hover:bg-forest-50 dark:hover:bg-forest-950/60 transition-colors"
+              >
+                <Linkedin class="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>
+
+<script>
+  function setupReadMore() {
+    document.querySelectorAll('.read-more-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const textContainer = btn.previousElementSibling;
+        if (!textContainer) return;
+        const isClamped = textContainer.classList.toggle('line-clamp-6');
+        btn.textContent = isClamped ? 'Read more' : 'Show less';
+      });
+    });
+  }
+
+  setupReadMore();
+  document.addEventListener('astro:after-swap', setupReadMore);
+</script>

@@ -79,5 +79,6 @@ export const profileData: ProfileData = {
     { label: 'Experience', href: '#experience' },
     { label: 'Publications', href: '#publications' },
     { label: 'Awards', href: '#awards' },
+    { label: 'Recommendations', href: '#recommendations' },
   ],
 };
