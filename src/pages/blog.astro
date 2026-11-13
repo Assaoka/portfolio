@@ -1,0 +1,292 @@
+---
+import { getCollection } from 'astro:content';
+import { ArrowDownUp, ChevronDown, Search } from 'lucide-astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/blog/PostCard.astro';
+
+const rawPosts = await getCollection('blog');
+
+function estimateReadingTime(body: string | undefined): number {
+  if (!body) return 1;
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+const posts = rawPosts
+  .map((entry) => ({
+    ...entry,
+    slug: entry.id.replace(/\/index$/, ''),
+    readingTimeMinutes: estimateReadingTime(entry.body),
+  }))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const years = [...new Set(posts.map((p) => p.data.pubDate.getUTCFullYear()))].sort(
+  (a, b) => b - a
+);
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort((a, b) =>
+  a.localeCompare(b)
+);
+---
+
+<BaseLayout
+  title="Blog | João Assaoka"
+  description="Technical notes, tutorials, and thoughts on AI, NLP, Optimization, and Software Engineering."
+>
+  <section class="py-8 sm:py-12">
+    <div class="flex items-center justify-between gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-forest-700 dark:text-forest-400">
+        Blog
+      </h1>
+      <span class="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400">
+        {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+      </span>
+    </div>
+
+    <!-- Search, Compound Filters & Sorting -->
+    <div class="space-y-3 mb-6">
+      <div class="relative">
+        <Search class="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <input
+          id="blog-search"
+          type="search"
+          placeholder="Search by title, description, or tag..."
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:border-forest-500 dark:focus:border-forest-500 transition-colors"
+        />
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <!-- Left: Compound Filters -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Year Dropdown -->
+          <div class="relative filter-dropdown" data-dropdown="year">
+            <button
+              type="button"
+              class="dropdown-trigger inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 hover:border-forest-400 dark:hover:border-forest-600 transition-colors"
+              aria-expanded="false"
+            >
+              <span>Year</span>
+              <span class="year-count hidden px-1.5 py-0.2 rounded bg-forest-600 text-white text-[10px]">0</span>
+              <ChevronDown class="w-3.5 h-3.5 text-neutral-400" />
+            </button>
+            <div class="dropdown-menu hidden absolute left-0 mt-1.5 w-40 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg p-2 z-20 space-y-1">
+              {years.map((year) => (
+                <label class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    value={String(year)}
+                    class="year-checkbox rounded border-neutral-300 dark:border-neutral-700 text-forest-600 focus:ring-forest-500"
+                  />
+                  <span>{year}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Tags Dropdown -->
+          {allTags.length > 0 && (
+            <div class="relative filter-dropdown" data-dropdown="tags">
+              <button
+                type="button"
+                class="dropdown-trigger inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 hover:border-forest-400 dark:hover:border-forest-600 transition-colors"
+                aria-expanded="false"
+              >
+                <span>Tags</span>
+                <span class="tag-count hidden px-1.5 py-0.2 rounded bg-forest-600 text-white text-[10px]">0</span>
+                <ChevronDown class="w-3.5 h-3.5 text-neutral-400" />
+              </button>
+              <div class="dropdown-menu hidden absolute left-0 mt-1.5 w-52 max-h-64 overflow-y-auto rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg p-2 z-20 space-y-1">
+                {allTags.map((tag) => (
+                  <label class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={tag.toLowerCase()}
+                      class="tag-checkbox rounded border-neutral-300 dark:border-neutral-700 text-forest-600 focus:ring-forest-500"
+                    />
+                    <span>{tag}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Right: Sorting -->
+        <div class="flex items-center gap-1.5">
+          <select
+            id="blog-sort"
+            aria-label="Sort posts by"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 focus:outline-none focus:border-forest-500 transition-colors"
+          >
+            <option value="date">Date</option>
+            <option value="title">Title (A–Z)</option>
+            <option value="readingTime">Reading Time</option>
+          </select>
+
+          <button
+            id="sort-direction-btn"
+            type="button"
+            title="Toggle sort direction"
+            data-dir="desc"
+            class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 hover:border-forest-400 dark:hover:border-forest-600 transition-colors"
+          >
+            <ArrowDownUp class="w-3.5 h-3.5" />
+            <span id="sort-dir-label">Desc</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posts List -->
+    {posts.length > 0 ? (
+      <div id="blog-list" class="space-y-4">
+        {posts.map((post, index) => (
+          <PostCard
+            slug={post.slug}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            readingTimeMinutes={post.readingTimeMinutes}
+            index={index}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700 p-12 text-center">
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          No posts published yet.
+        </p>
+      </div>
+    )}
+
+    <p
+      id="blog-empty"
+      class="hidden text-center py-12 text-sm text-neutral-500 dark:text-neutral-400"
+    >
+      No posts match your current filter.
+    </p>
+  </section>
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('blog-search') as HTMLInputElement | null;
+  const sortSelect = document.getElementById('blog-sort') as HTMLSelectElement | null;
+  const sortDirBtn = document.getElementById('sort-direction-btn') as HTMLButtonElement | null;
+  const sortDirLabel = document.getElementById('sort-dir-label');
+  const yearCheckboxes = document.querySelectorAll<HTMLInputElement>('.year-checkbox');
+  const tagCheckboxes = document.querySelectorAll<HTMLInputElement>('.tag-checkbox');
+  const yearCountBadge = document.querySelector<HTMLElement>('.year-count');
+  const tagCountBadge = document.querySelector<HTMLElement>('.tag-count');
+  const blogList = document.getElementById('blog-list');
+  const emptyState = document.getElementById('blog-empty');
+  const dropdowns = document.querySelectorAll<HTMLElement>('.filter-dropdown');
+
+  // Toggle dropdowns
+  dropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector<HTMLButtonElement>('.dropdown-trigger');
+    const menu = dropdown.querySelector<HTMLElement>('.dropdown-menu');
+    trigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !menu?.classList.contains('hidden');
+      document.querySelectorAll('.dropdown-menu').forEach((m) => m.classList.add('hidden'));
+      document.querySelectorAll('.dropdown-trigger').forEach((t) => t.setAttribute('aria-expanded', 'false'));
+      if (!isOpen && menu) {
+        menu.classList.remove('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (!target?.closest('.filter-dropdown')) {
+      document.querySelectorAll('.dropdown-menu').forEach((m) => m.classList.add('hidden'));
+      document.querySelectorAll('.dropdown-trigger').forEach((t) => t.setAttribute('aria-expanded', 'false'));
+    }
+  });
+
+  function updateCountBadges() {
+    const selectedYears = Array.from(yearCheckboxes).filter((cb) => cb.checked).length;
+    const selectedTags = Array.from(tagCheckboxes).filter((cb) => cb.checked).length;
+
+    if (yearCountBadge) {
+      yearCountBadge.textContent = String(selectedYears);
+      yearCountBadge.classList.toggle('hidden', selectedYears === 0);
+    }
+    if (tagCountBadge) {
+      tagCountBadge.textContent = String(selectedTags);
+      tagCountBadge.classList.toggle('hidden', selectedTags === 0);
+    }
+  }
+
+  function applyFilterAndSort() {
+    if (!blogList) return;
+    updateCountBadges();
+
+    const query = (searchInput?.value || '').trim().toLowerCase();
+    const selectedYears = new Set(
+      Array.from(yearCheckboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value)
+    );
+    const selectedTags = new Set(
+      Array.from(tagCheckboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value)
+    );
+
+    const cards = Array.from(blogList.querySelectorAll<HTMLElement>('.post-card'));
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const searchBlob = card.dataset.search || '';
+      const year = card.dataset.year || '';
+      const tags = (card.dataset.tags || '').split('|').filter(Boolean);
+
+      const matchesSearch = !query || searchBlob.includes(query);
+      const matchesYear = selectedYears.size === 0 || selectedYears.has(year);
+      const matchesTags =
+        selectedTags.size === 0 || tags.some((t) => selectedTags.has(t));
+
+      const show = matchesSearch && matchesYear && matchesTags;
+      card.classList.toggle('hidden', !show);
+      if (show) visibleCount++;
+    });
+
+    const sortBy = sortSelect?.value || 'date';
+    const dir = sortDirBtn?.dataset.dir || 'desc';
+    const mult = dir === 'asc' ? 1 : -1;
+
+    cards.sort((a, b) => {
+      if (sortBy === 'title') {
+        return (a.dataset.title || '').localeCompare(b.dataset.title || '') * mult;
+      }
+      if (sortBy === 'readingTime') {
+        return (Number(a.dataset.readingTime || 0) - Number(b.dataset.readingTime || 0)) * mult;
+      }
+      return (Number(a.dataset.date || 0) - Number(b.dataset.date || 0)) * mult;
+    });
+
+    cards.forEach((c) => blogList.appendChild(c));
+    emptyState?.classList.toggle('hidden', visibleCount > 0);
+  }
+
+  searchInput?.addEventListener('input', applyFilterAndSort);
+  yearCheckboxes.forEach((cb) => cb.addEventListener('change', applyFilterAndSort));
+  tagCheckboxes.forEach((cb) => cb.addEventListener('change', applyFilterAndSort));
+
+  sortSelect?.addEventListener('change', () => {
+    const val = sortSelect.value;
+    const defaultDir = val === 'title' ? 'asc' : 'desc';
+    if (sortDirBtn) sortDirBtn.dataset.dir = defaultDir;
+    if (sortDirLabel) sortDirLabel.textContent = defaultDir === 'asc' ? 'Asc' : 'Desc';
+    applyFilterAndSort();
+  });
+
+  sortDirBtn?.addEventListener('click', () => {
+    const nextDir = sortDirBtn.dataset.dir === 'asc' ? 'desc' : 'asc';
+    sortDirBtn.dataset.dir = nextDir;
+    if (sortDirLabel) sortDirLabel.textContent = nextDir === 'asc' ? 'Asc' : 'Desc';
+    applyFilterAndSort();
+  });
+</script>
