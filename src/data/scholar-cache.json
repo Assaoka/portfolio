@@ -1,0 +1,14 @@
+{
+  "citations": 3,
+  "hIndex": 1,
+  "paperCitations": {
+    "evaluatingreferencefreesummarizationqualitymetricsforportugueseastudywithhumanjudgmentsinfinancialnews": 2,
+    "amultimodalframeworkforfinancialfakenewsdetectionforbrazilianportuguese": 1,
+    "unitedexpertsefficientmultitasksentimentanalysisinportugueseviamodelmerging": 0,
+    "mitigatingimbalanceinportuguesetoxicityclassificationviallmaugmentationandcrossdatasetlabelpropagation": 0,
+    "benchmarkingtextclassifiersforeconomicnewsinbrazilianportugueseindomainqualityandoutofdistributiongeneralization": 0,
+    "negotiatingllmsforenhancedhatespeechclassificationandinterpretability": 0,
+    "supportingquantitativelearningwithaithecaseofthenumtutorplatformfornumericalmethods": 0,
+    "rkorandomkeyoptimizerpythonframework": 0
+  }
+}
