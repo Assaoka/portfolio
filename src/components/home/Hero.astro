@@ -39,10 +39,13 @@ const iconMap = {
     {profileData.bio}
   </p>
 
-  <!-- Key Words & Languages -->
+  <!-- Hard Skills, Soft Skills & Languages -->
   <div class="mt-6 space-y-1.5 text-xs sm:text-sm">
     <p class="text-zinc-600 dark:text-zinc-400">
-      <strong class="font-semibold text-zinc-900 dark:text-zinc-100">Keywords:</strong> {profileData.keywords.join(', ')}
+      <strong class="font-semibold text-zinc-900 dark:text-zinc-100">Hard Skills:</strong> {profileData.hardSkills.join(', ')}
+    </p>
+    <p class="text-zinc-600 dark:text-zinc-400">
+      <strong class="font-semibold text-zinc-900 dark:text-zinc-100">Soft Skills:</strong> {profileData.softSkills.join(', ')}
     </p>
     <p class="text-zinc-600 dark:text-zinc-400">
       <strong class="font-semibold text-zinc-900 dark:text-zinc-100">Languages:</strong> {profileData.languages.join(', ')}

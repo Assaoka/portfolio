@@ -18,6 +18,15 @@ export const awardsData: ContentItem[] = [
     text: `
 - Project selected in the campus stage under the Exact Sciences Scientific Research category to represent the campus in the university-wide institutional award (pending).
     `,
-  }
+  },
+  {
+    title: 'Most Engaged Trainee',
+    subtitle: 'SciTec Jr.',
+    period: '2024',
+    detail: 'Junior Enterprise Recognition',
+    text: `
+- Recognized as the Most Engaged Trainee of 2024 at SciTec Jr.
+    `,
+  },
 ];
 
