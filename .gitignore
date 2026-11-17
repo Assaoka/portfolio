@@ -140,3 +140,6 @@ dist
 
 # Local-only blog writing guide
 src/content/blog/2026/guia-de-escrita/
+
+# My Stuff
+local/

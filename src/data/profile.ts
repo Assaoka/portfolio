@@ -15,7 +15,8 @@ export interface ProfileData {
   statusBadge: string;
   title: string;
   bio: string;
-  keywords: string[];
+  hardSkills: string[];
+  softSkills: string[];
   languages: string[];
   cvUrl: string;
   socialLinks: SocialLink[];
@@ -28,25 +29,60 @@ export const profileData: ProfileData = {
   statusBadge: 'Generative AI Engineer & CS PhD Researcher',
   title: 'Generative AI Engineer & CS PhD Researcher',
   bio: 'Generative AI Engineer and CS PhD researcher at UNIFESP. I investigate methodologies for efficient post-training and real-world LLM operationalization.',
-  keywords: [
+  hardSkills: [
     'Python',
-    'IA',
-    'Deep Learning',
-    'Agentes',
-    'LLM',
-    'RAG',
-    'Hugging Face',
+    'SQL',
+    'SQLAlchemy',
+    'Software Engineering',
+    'Object-Oriented Programming (OOP)',
+    'APIs',
+    'FastAPI',
+    'LLMs',
+    'Generative AI',
+    'AI Agents',
+    'Multi-Agent Systems',
+    'Agent Architecture',
+    'Prompt Engineering',
+    'Text-to-SQL',
     'LangChain',
-    'vLLM',
+    'LangGraph',
+    'Hugging Face',
+    'LLM Evaluation',
+    'Automated Testing',
+    'Machine Learning',
+    'Deep Learning',
+    'Explainable AI (XAI)',
+    'Data Engineering',
+    'Scientific Research',
+    'Kaggle',
     'Streamlit',
+    'Selenium',
+    'Linux',
+    'HPC',
+    'Slurm',
     'Claude Code',
     'Antigravity',
+  ],
+  softSkills: [
+    'Leadership',
+    'Project Management',
+    'Cross-Functional Teamwork',
+    'Problem Solving',
+    'Autonomy',
+    'Assertiveness',
+    'Continuous & Fast Learning',
+    'Growth Mindset',
+    'Clear Technical Communication',
+    'Didactics',
+    'Training Delivery',
+    'Workshop Facilitation',
+    'Conference Presentations',
   ],
   languages: [
     'Portuguese (Native)',
     'English (Advanced)',
   ],
-  cvUrl: '/vitae.pdf',
+  cvUrl: '/vitae/main.pdf',
   socialLinks: [
     {
       name: 'Google Scholar',
